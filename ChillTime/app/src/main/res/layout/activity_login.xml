@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText2"
-        android:text="Voer uw naam in"
+        android:hint="Voer uw naam in"
         android:layout_above="@+id/editText"
         android:layout_marginBottom="38dp"
         android:layout_alignStart="@+id/editText"
