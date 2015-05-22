@@ -1,9 +1,11 @@
 package mad_world.nl.chilltime;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class Login extends ActionBarActivity {
@@ -34,5 +36,12 @@ public class Login extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void Login(View view) {
+        Intent intent = new Intent(this, Group.class);
+
+        startActivity(intent);
+
     }
 }
