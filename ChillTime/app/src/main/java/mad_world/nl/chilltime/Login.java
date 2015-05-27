@@ -1,14 +1,14 @@
 package mad_world.nl.chilltime;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 
-public class Login extends ActionBarActivity {
+public class Login extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class Login extends ActionBarActivity {
     }
 
     public void Login(View view) {
-        Intent intent = new Intent(this, Group.class);
+        Intent intent = new Intent(this, MainActivity.class);
 
         startActivity(intent);
 
