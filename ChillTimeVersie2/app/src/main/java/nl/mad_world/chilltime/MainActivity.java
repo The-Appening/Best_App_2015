@@ -1,17 +1,32 @@
 package nl.mad_world.chilltime;
 
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends FragmentActivity {
+    // Fragment TabHost as mTabHost
+    private FragmentTabHost mTabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+
+        mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Groepen"),
+                Tab1Fragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Contacten"),
+                Tab2Fragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Instellen"),
+                Tab3Fragment.class, null);
     }
 
     @Override
