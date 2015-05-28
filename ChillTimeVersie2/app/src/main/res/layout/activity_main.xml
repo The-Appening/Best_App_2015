@@ -30,8 +30,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Wachtwoord"
         android:id="@+id/textView2"
-        android:layout_above="@+id/editText2"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/imageView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="170dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -39,18 +40,20 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editText2"
-        android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/button"
-        android:layout_below="@+id/editText2"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_marginTop="39dp" />
+        android:layout_below="@+id/checkBox"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_marginTop="39dp"
+        android:onclick="Login"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -66,4 +69,21 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:layout_toEndOf="@+id/button" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Onthouden"
+        android:id="@+id/checkBox"
+        android:checked="false"
+        android:layout_below="@+id/editText2"
+        android:layout_alignEnd="@+id/textView" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/logo_app" />
 </RelativeLayout>
