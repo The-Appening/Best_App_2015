@@ -4,6 +4,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+
+import java.util.ArrayList;
 
 
 public class Registreer extends ActionBarActivity {
@@ -35,4 +38,11 @@ public class Registreer extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+   /* public ArrayList<String> getInputValues(){
+        EditText ETfName = (EditText)findViewById(R.id.fName);
+        String fName = ETfName.getText().toString();
+
+
+    } */
 }
