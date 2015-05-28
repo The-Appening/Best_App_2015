@@ -1,17 +1,31 @@
 package nl.mad_world.chilltime;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class Groep extends ActionBarActivity {
+public class Groep extends FragmentActivity {
+
+    // Fragment TabHost as mTabHost
+    private FragmentTabHost mTabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groep);
+
+        mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+
+        mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Test1"),
+                Tab1Fragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Test2"),
+                Tab2Fragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Test3"),
+                Tab3Fragment.class, null);
     }
 
     @Override
@@ -35,4 +49,5 @@ public class Groep extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
