@@ -7,9 +7,17 @@
     <string name="title_activity_registreer">Registreer</string>
     <string name="title_activity_contact">Contact</string>
     <string name="title_activity_agenda">Agenda</string>
+
     <string name="title_activity_group">Group</string>
 
     <string name="title_section1">Groepen</string>
     <string name="title_section2">Contacten</string>
     <string name="title_section3">Instellingen</string>
+
+    <string name="title_activity_main_activity2">MainActivity2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
 </resources>
