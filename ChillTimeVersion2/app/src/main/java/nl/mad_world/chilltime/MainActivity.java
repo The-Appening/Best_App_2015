@@ -39,7 +39,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void Login(View view){
-        Intent intent = new Intent(this, Groep.class);
+        Intent intent = new Intent(this, Contact.class);
 
         startActivity(intent);
     }

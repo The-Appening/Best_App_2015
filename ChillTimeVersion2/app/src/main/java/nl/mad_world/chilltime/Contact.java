@@ -4,14 +4,32 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.os.Bundle;
+import android.view.Menu;
+import android.widget.ListView;
+import android.widget.ArrayAdapter;
 
 
 public class Contact extends ActionBarActivity {
+
+    private ListView tweetListView;
+    private String[] stringArray ;
+    private ArrayAdapter tweetItemArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+
+        stringArray = new String[10];
+        stringArray[0] = "Oscar";
+        stringArray[1] = "Roy";
+        for(int i=2; i < stringArray.length; i++){
+            stringArray[i] = "String " + i;
+        }
+        tweetItemArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stringArray);
+        tweetListView = (ListView) findViewById(R.id.listViewID);
+        tweetListView.setAdapter(tweetItemArrayAdapter);
     }
 
     @Override
