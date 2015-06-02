@@ -7,4 +7,9 @@
     <string name="title_activity_registreer">Registreer</string>
     <string name="title_activity_contact">Contact</string>
     <string name="title_activity_agenda">Agenda</string>
+    <string name="title_activity_group">Group</string>
+
+    <string name="title_section1">Groepen</string>
+    <string name="title_section2">Contacten</string>
+    <string name="title_section3">Instellingen</string>
 </resources>
