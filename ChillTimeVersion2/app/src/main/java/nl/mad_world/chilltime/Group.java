@@ -1,5 +1,6 @@
 package nl.mad_world.chilltime;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 import android.support.v7.app.ActionBarActivity;
@@ -16,10 +17,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
 public class Group extends ActionBarActivity implements ActionBar.TabListener {
+
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -76,7 +80,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -104,6 +107,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
+        System.out.println(tab.getPosition());
     }
 
     @Override
@@ -156,6 +160,11 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+
+        private ListView tweetListView;
+        private String[] stringArray ;
+        private ArrayAdapter tweetItemArrayAdapter;
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -180,9 +189,13 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
             View rootView = inflater.inflate(R.layout.fragment_group, container, false);
             return rootView;
+
         }
+
+
     }
 
 }
