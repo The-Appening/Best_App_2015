@@ -24,6 +24,14 @@
             android:name=".Registreer"
             android:label="@string/title_activity_registreer" >
         </activity>
+        <activity
+            android:name=".Contact"
+            android:label="@string/title_activity_contact" >
+        </activity>
+        <activity
+            android:name=".Agenda"
+            android:label="@string/title_activity_agenda" >
+        </activity>
     </application>
 
 </manifest>
