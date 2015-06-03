@@ -128,7 +128,18 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            if(position == 0) {
+                return GroupFragment.newInstance(position);
+            }
+            if(position == 1) {
+                return ContactFragment.newInstance(position);
+            }
+            if(position == 2) {
+                return SettingsFragment.newInstance(position);
+            }
+            else {
+                return null;
+            }
         }
 
         @Override
@@ -155,7 +166,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class GroupFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -166,21 +177,87 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
+        public static GroupFragment newInstance(int sectionNumber) {
+            GroupFragment fragment = new GroupFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
 
-        public PlaceholderFragment() {
+        public GroupFragment() {
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_group, container, false);
+            return rootView;
+        }
+    }
+
+    /**
+     * Settings fragment
+     */
+    public static class SettingsFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static SettingsFragment newInstance(int sectionNumber) {
+            SettingsFragment fragment = new SettingsFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public SettingsFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+            return rootView;
+        }
+    }
+
+    /**
+     * Contactfragment
+     */
+    public static class ContactFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static ContactFragment newInstance(int sectionNumber) {
+            ContactFragment fragment = new ContactFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public ContactFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
             return rootView;
         }
     }
