@@ -10,38 +10,44 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.Arrays;
 
 
-public class Contact extends ActionBarActivity {
+public class Groupen extends ActionBarActivity {
+
 
     private ListView tweetListView;
     private String[] stringArray ;
     private ArrayAdapter tweetItemArrayAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact);
+        setContentView(R.layout.activity_groupen);
+
 
         stringArray = new String[10];
-        stringArray[0] = "Oscar Veldman";
-        stringArray[1] = "Roy van den Heuvel";
-        stringArray[2] = "Johan Bos";
+        stringArray[0] = "Meerpaal";
+        stringArray[1] = "Comenius";
+        stringArray[2] = "HogeSchool Rotterdam";
         for(int i=3; i < stringArray.length; i++){
             stringArray[i] = "String " + i;
         }
         Arrays.sort(stringArray);
         tweetItemArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stringArray);
-        tweetListView = (ListView) findViewById(R.id.listViewID);
+        tweetListView = (ListView) findViewById(R.id.listView);
         tweetListView.setAdapter(tweetItemArrayAdapter);
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_contact, menu);
+        getMenuInflater().inflate(R.menu.menu_groupen, menu);
         return true;
     }
 
@@ -71,6 +77,5 @@ public class Contact extends ActionBarActivity {
 
         startActivity(intent);
     }
-
 
 }

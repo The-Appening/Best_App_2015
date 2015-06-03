@@ -23,8 +23,7 @@ import android.widget.TextView;
 
 
 public class Group extends ActionBarActivity implements ActionBar.TabListener {
-
-
+    public static int settabs = 0;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -33,7 +32,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    SectionsPagerAdapter mSectionsPagerAdapter;
+    static SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -161,9 +160,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
      */
     public static class PlaceholderFragment extends Fragment {
 
-        private ListView tweetListView;
-        private String[] stringArray ;
-        private ArrayAdapter tweetItemArrayAdapter;
 
         /**
          * The fragment argument representing the section number for this
@@ -189,10 +185,9 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+                    View rootView = inflater.inflate(R.layout.fragment_contacten, container, false);
 
-            View rootView = inflater.inflate(R.layout.fragment_group, container, false);
             return rootView;
-
         }
 
 
