@@ -39,6 +39,10 @@
             android:name=".Group"
             android:label="@string/title_activity_group" >
         </activity>
+        <activity
+            android:name=".Groupen"
+            android:label="@string/title_activity_groupen" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,9 +1,11 @@
 package nl.mad_world.chilltime;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -45,4 +47,12 @@ public class Registreer extends ActionBarActivity {
 
 
     } */
+
+    public void Aanmelden(View view){
+        Intent intent = new Intent(this, Groupen.class);
+
+        startActivity(intent);
+    }
+
+
 }
