@@ -61,7 +61,7 @@ public class Contact extends ActionBarActivity {
     }
 
     public void Groep(View view){
-        Intent intent = new Intent(this, Groupen.class);
+        Intent intent = new Intent(this, Group.class);
 
         startActivity(intent);
     }

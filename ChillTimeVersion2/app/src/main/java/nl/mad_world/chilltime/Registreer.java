@@ -49,7 +49,7 @@ public class Registreer extends ActionBarActivity {
     } */
 
     public void Aanmelden(View view){
-        Intent intent = new Intent(this, Groupen.class);
+        Intent intent = new Intent(this, Group.class);
 
         startActivity(intent);
     }
