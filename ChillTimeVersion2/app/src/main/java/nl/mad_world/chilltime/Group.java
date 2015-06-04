@@ -179,7 +179,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public GroupFragment() {
         }
 
-        private static String[] MOBILE_MODELS = {"Meerpaal","Comenius","Hoge School Rotterdam","Family Agenda"};
+        private static String[] MOBILE_MODELS = {"Meerpaal","Comenius","HogeSchool Rotterdam","Family Agenda"};
 
         public static GroupFragment newInstance() {
             Bundle args = new Bundle();
@@ -262,7 +262,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public ContactFragment() {
         }
 
-        private static String[] Contactlist = {"Roy van den Heuvel","Johan Bos","Yoram van Spike"};
+        private static String[] Contactlist = {"Roy van den Heuvel","Johan Bos","Yoram van Spike", "Yoram van Spijk"};
 
         public static ContactFragment newInstance() {
             Bundle args = new Bundle();
@@ -288,8 +288,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
                     //You could lookup by position, but "name" is more general
 
-                    Intent intent = new Intent(getActivity(), Agenda.class
-                    );
+                    Intent intent = new Intent(getActivity(), Agenda.class);
                     startActivity(intent);
 
 
