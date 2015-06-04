@@ -1,39 +1,53 @@
 package nl.mad_world.chilltime;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.Toast;
 
+    public class Agenda extends Activity {
+        /**
+         * Called when the activity is first created.
+         */
 
-public class Agenda extends ActionBarActivity {
+        static final int DATE_DIALOG_ID = 0;
+        static final int PICK_DATE_REQUEST = 1;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.main);
 
+            Button openButton = (Button) findViewById(R.id.openButton);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_agenda, menu);
-        return true;
-    }
+            openButton.setOnClickListener(new OnClickListener() {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+                @Override
+                public void onClick(View v) {
+                    DatePicker dp = (DatePicker) findViewById(R.id.datePicker1);
+                    Intent intent = new Intent(v.getContext(), CalendarView.class);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+                    intent.putExtra("date", dp.getYear() + "-" + dp.getMonth() + "-" + dp.getDayOfMonth());
+                    startActivityForResult(intent, PICK_DATE_REQUEST);
+                }
+            });
         }
 
-        return super.onOptionsItemSelected(item);
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == PICK_DATE_REQUEST) {
+                if (resultCode == RESULT_OK) {
+                    Toast.makeText(getApplicationContext(), data.getStringExtra("date"), Toast.LENGTH_SHORT).show();
+                    String[] dateArr = data.getStringExtra("date").split("-");
+                    DatePicker dp = (DatePicker) findViewById(R.id.datePicker1);
+                    dp.updateDate(Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[2]));
+                }
+            }
+        }
     }
 
-}
