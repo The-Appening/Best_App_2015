@@ -3,13 +3,17 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-    >
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
+              android:divider="#ff555555"
+              android:dividerPadding="1dp"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:showDividers="middle|beginning|end">
 
-    <DatePicker android:id="@+id/datePicker1" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-    <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="open" android:id="@+id/openButton"/>
+    <CalendarView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/calendarView"
+        android:layout_gravity="center_horizontal"
+        android:clickable="false"/>
 
 </LinearLayout>
