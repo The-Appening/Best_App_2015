@@ -17,6 +17,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
 public class Group extends ActionBarActivity implements ActionBar.TabListener {
@@ -77,27 +85,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_group, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -188,10 +175,24 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public GroupFragment() {
         }
 
+        private static String[] MOBILE_MODELS = {"Meerpaal","Comenius","Hoge School Rotterdam","Family Agenda"};
+
+        public static GroupFragment newInstance() {
+            Bundle args = new Bundle();
+            GroupFragment fragment = new GroupFragment();
+            fragment.setArguments(args);
+            return fragment;
+
+        }
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_group, container, false);
+
+            ListView listView = (ListView) rootView.findViewById(R.id.GlistView);
+            listView.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,MOBILE_MODELS));
+
             return rootView;
         }
     }
@@ -221,10 +222,13 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public SettingsFragment() {
         }
 
+
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+
             return rootView;
         }
     }
@@ -254,10 +258,24 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public ContactFragment() {
         }
 
+        private static String[] Contactlist = {"Roy van den Heuvel","Johan Bos","Yoram van Spike"};
+
+        public static ContactFragment newInstance() {
+            Bundle args = new Bundle();
+            ContactFragment fragment = new ContactFragment();
+            fragment.setArguments(args);
+            return fragment;
+
+        }
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
+
+            ListView listView = (ListView) rootView.findViewById(R.id.ClistView);
+            listView.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,Contactlist));
+
             return rootView;
         }
     }
