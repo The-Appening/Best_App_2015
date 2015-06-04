@@ -32,7 +32,7 @@
             android:screenOrientation="portrait" >
         </activity>
 
-        <activity android:name="com.exina.android.calendar.CalendarActivity">
+        <activity android:name="CalendarActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
@@ -42,6 +42,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="vnd.android.cursor.dir/vnd.exina.android.calendar.date" />
             </intent-filter>
         </activity>
@@ -49,6 +50,11 @@
         <activity
             android:name=".Group"
             android:label="@string/title_activity_group" >
+        </activity>
+
+        <activity
+            android:name=".Agenda"
+            android:label="@string/title_activity_agenda" >
         </activity>
     </application>
 

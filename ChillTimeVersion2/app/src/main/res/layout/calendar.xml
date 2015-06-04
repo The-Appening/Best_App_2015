@@ -10,7 +10,6 @@
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/header_background"
         >
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                       android:layout_width="fill_parent"
@@ -26,7 +25,6 @@
                 android:paddingLeft="5dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
                 android:gravity="center_horizontal"
                 android:text="&lt;&lt;"
                 android:clickable="true"
@@ -42,7 +40,6 @@
             android:paddingLeft="5dp"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
             android:gravity="center_horizontal"
             android:layout_toRightOf="@+id/previous"
             tools:ignore="NotSibling"/>
@@ -61,7 +58,6 @@
                 android:paddingLeft="5dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
                 android:gravity="center_horizontal"
                 android:text=">>"
                 android:clickable="true"
