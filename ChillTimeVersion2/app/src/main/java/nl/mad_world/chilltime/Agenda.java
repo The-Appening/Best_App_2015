@@ -1,13 +1,9 @@
 package nl.mad_world.chilltime;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.os.Bundle;
-import android.view.Menu;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
 
 
 public class Agenda extends ActionBarActivity {
