@@ -41,17 +41,37 @@ public class Registreer extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-   /* public ArrayList<String> getInputValues(){
-        EditText ETfName = (EditText)findViewById(R.id.fName);
-        String fName = ETfName.getText().toString();
-
-
-    } */
-
     public void Aanmelden(View view){
+        EditText fNameET = (EditText) findViewById(R.id.fName);
+        String fName = fNameET.getText().toString();
+
+        EditText insertionET = (EditText) findViewById(R.id.insertion);
+        String insertion = insertionET.getText().toString();
+
+        EditText sNameET = (EditText) findViewById(R.id.sName);
+        String sName = sNameET.getText().toString();
+
+        EditText uNameET = (EditText) findViewById(R.id.uName);
+        String uName = uNameET.getText().toString();
+
+        EditText passwordET = (EditText) findViewById(R.id.password);
+        String password = passwordET.getText().toString();
+
+        EditText emailET = (EditText) findViewById(R.id.email);
+        String email = emailET.getText().toString();
+
+        System.out.println(fName);
+        System.out.println(insertion);
+        System.out.println(sName);
+        System.out.println(uName);
+        System.out.println(password);
+        System.out.println(email);
+
+        /*
         Intent intent = new Intent(this, Group.class);
 
         startActivity(intent);
+        */
     }
 
 
