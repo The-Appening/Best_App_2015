@@ -7,4 +7,11 @@
     tools:context="nl.mad_world.chilltime.Group$SettingsFragment"
     android:background="#ff7ab4ff">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activiteit toevoegen"
+        android:id="@+id/button3"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

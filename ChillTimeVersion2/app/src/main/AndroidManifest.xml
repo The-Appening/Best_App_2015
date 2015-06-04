@@ -14,7 +14,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +25,8 @@
         <activity
             android:name=".Registreer"
             android:label="@string/title_activity_registreer"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".Contact"
@@ -49,11 +51,13 @@
 
         <activity
             android:name=".Group"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_group" >
         </activity>
 
         <activity
             android:name=".Agenda"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_agenda" >
         </activity>
     </application>
