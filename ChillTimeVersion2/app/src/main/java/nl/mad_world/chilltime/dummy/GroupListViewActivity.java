@@ -1,12 +1,18 @@
 package nl.mad_world.chilltime.dummy;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
+import nl.mad_world.chilltime.Agenda;
 import nl.mad_world.chilltime.Group;
+import nl.mad_world.chilltime.R;
 
 public class GroupListViewActivity extends ActionBarActivity {
 
@@ -14,6 +20,8 @@ public class GroupListViewActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         // create our UI using a fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -25,4 +33,8 @@ public class GroupListViewActivity extends ActionBarActivity {
         }
         ((ActionBarActivity)this).getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
+
+
+
+
 }
