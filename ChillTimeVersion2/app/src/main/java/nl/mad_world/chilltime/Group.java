@@ -276,17 +276,16 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
-            ListView lv = (ListView) rootView.findViewById(R.id.ClistView);
+            ListView listView = (ListView) rootView.findViewById(R.id.ClistView);
+            listView.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,Contactlist));
 
 
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View arg1,
                                         int position, long arg3) {
-                    // TODO Auto-generated method stub
 
-                    //You could lookup by position, but "name" is more general
 
                     Intent intent = new Intent(getActivity(), Agenda.class);
                     startActivity(intent);
