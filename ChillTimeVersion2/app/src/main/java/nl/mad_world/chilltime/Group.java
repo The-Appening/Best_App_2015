@@ -2,6 +2,7 @@ package nl.mad_world.chilltime;
 
 import java.util.Locale;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,6 +27,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
 
 
 public class Group extends ActionBarActivity implements ActionBar.TabListener {
@@ -272,12 +276,29 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
+            ListView lv = (ListView) rootView.findViewById(R.id.ClistView);
 
-            ListView listView = (ListView) rootView.findViewById(R.id.ClistView);
-            listView.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,Contactlist));
 
-            return rootView;
-        }
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1,
+                                        int position, long arg3) {
+                    // TODO Auto-generated method stub
+
+                    //You could lookup by position, but "name" is more general
+
+                    Intent intent = new Intent(getActivity(), Agenda.class
+                    );
+                    startActivity(intent);
+
+
+                }
+            });
+
+            return rootView;        }
     }
 
 }
+
+
