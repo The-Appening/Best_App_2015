@@ -14,23 +14,28 @@ public class Registreer extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registreer);
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "wxutoacSUnKAIN5NxgCm7QvHqmrw2VoVlm7wkMrp", "5cfOao5AJYe6d5H1LpuIFwK4mXev14jbZrNZADZB");
     }
 
 
+    public void Save(View view) {
 
-        public void Save(View view){
-        Savein();
+        Runnable r = new Runnable() {
+            public void run() {
+                saveRegistrationInDb();
+            }
+        };
 
         Intent intent = new Intent(this, MainActivity.class);
 
         startActivity(intent);
 
     }
-    public void Savein(){
+
+    public void saveRegistrationInDb() {
 
         EditText fNameET = (EditText) findViewById(R.id.fName);
         String fName = fNameET.getText().toString();
