@@ -274,9 +274,9 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
                 public void onItemClick(AdapterView<?> arg0, View arg1,
                                         int position, long arg3) {
 
+                    Intent cal = new Intent(getActivity(), CalendarView.class);
+                    startActivity(cal);
 
-                    Intent intent = new Intent(getActivity(), Utility.class);
-                    startActivity(intent);
 
 
                 }
