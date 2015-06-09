@@ -1,11 +1,13 @@
 package nl.mad_world.chilltime;
 
+import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.WeekView;
@@ -73,21 +75,18 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
                 case android.R.id.home:
                     finish();
                     return true;
+
                 case R.id.action_today:
                 mWeekView.goToToday();
                 return true;
-            case R.id.action_day_view:
-                if (mWeekViewType != TYPE_DAY_VIEW) {
-                    item.setChecked(!item.isChecked());
-                    mWeekViewType = TYPE_DAY_VIEW;
-                    mWeekView.setNumberOfVisibleDays(1);
 
-                    // Lets change some dimensions to best fit the view.
-                    mWeekView.setColumnGap((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
-                    mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-                    mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-                }
+            case R.id.addEvent:
+               Intent add = new Intent(this, maakEvent.class);
+
+                startActivity(add);
+
                 return true;
+
             case R.id.action_three_day_view:
                 if (mWeekViewType != TYPE_THREE_DAY_VIEW) {
                     item.setChecked(!item.isChecked());
@@ -100,6 +99,7 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
                 }
                 return true;
+
             case R.id.action_week_view:
                 if (mWeekViewType != TYPE_WEEK_VIEW) {
                     item.setChecked(!item.isChecked());
@@ -111,6 +111,8 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
                     mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
                 }
+
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -257,15 +259,18 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
     }
 
 
-
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        //Toast.makeText(MainActivity.this, "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
+        Intent newEvent = new Intent(this, maakEvent.class);
+
+        startActivity(newEvent);
     }
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-        //Toast.makeText(Group.this, "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(Agenda.this, "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+
+
     }
 
 }
