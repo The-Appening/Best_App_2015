@@ -60,7 +60,7 @@ public class Contact extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void Groep(View view){
+    public void Group(View view){
         Intent intent = new Intent(this, Group.class);
 
         startActivity(intent);
