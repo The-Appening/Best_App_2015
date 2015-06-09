@@ -185,6 +185,20 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             ListView listView = (ListView) rootView.findViewById(R.id.GlistView);
             listView.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,MOBILE_MODELS));
 
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1,
+                                        int position, long arg3) {
+
+
+                    Intent intent = new Intent(getActivity(), Agenda.class);
+                    startActivity(intent);
+
+
+                }
+            });
+
             return rootView;
         }
     }
@@ -265,22 +279,8 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
             ListView listView = (ListView) rootView.findViewById(R.id.ClistView);
-            listView.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,Contactlist));
+            listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Contactlist));
 
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> arg0, View arg1,
-                                        int position, long arg3) {
-
-
-                    Intent intent = new Intent(getActivity(), Utility.class);
-                    startActivity(intent);
-
-
-                }
-            });
 
             return rootView;        }
     }
