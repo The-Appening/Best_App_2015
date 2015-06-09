@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+
     <application
         tools:replace="android:icon"
         android:allowBackup="true"
@@ -35,21 +36,6 @@
             android:screenOrientation="portrait" >
         </activity>
 
-        <activity android:name="CalendarActivity">
-
-            <intent-filter>
-                <action android:name="android.intent.action.PICK" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/vnd.exina.android.calendar.date" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="vnd.android.cursor.dir/vnd.exina.android.calendar.date" />
-            </intent-filter>
-        </activity>
-
         <activity
             android:name=".Group"
             android:screenOrientation="portrait"
@@ -57,10 +43,15 @@
         </activity>
 
         <activity
-            android:name=".Agenda"
+            android:name=".CalendarView"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_agenda" >
         </activity>
+
     </application>
+
+    <uses-permission android:name= "android.permisson.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
 
 </manifest>

@@ -1,34 +1,22 @@
 package nl.mad_world.chilltime;
 
-import java.util.Locale;
-
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.TextView;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import static android.support.v4.app.ActivityCompat.startActivity;
+import java.util.Locale;
 
 
 public class Group extends ActionBarActivity implements ActionBar.TabListener {
@@ -179,7 +167,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public GroupFragment() {
         }
 
-        private static String[] MOBILE_MODELS = {"Meerpaal","Comenius","HogeSchool Rotterdam","Family Agenda"};
+        private static String[] MOBILE_MODELS = {"Meerpaal","Comenius","HogeSchool Rotterdam","Family Utility"};
 
         public static GroupFragment newInstance() {
             Bundle args = new Bundle();
@@ -287,7 +275,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
                                         int position, long arg3) {
 
 
-                    Intent intent = new Intent(getActivity(), Agenda.class);
+                    Intent intent = new Intent(getActivity(), Utility.class);
                     startActivity(intent);
 
 
