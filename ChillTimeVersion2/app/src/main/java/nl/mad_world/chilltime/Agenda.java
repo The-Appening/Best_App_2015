@@ -36,6 +36,8 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
 
@@ -52,6 +54,7 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
         setupDateTimeInterpreter(false);
+
     }
 
 
@@ -64,9 +67,13 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         setupDateTimeInterpreter(id == R.id.action_week_view);
-        switch (id){
-            case R.id.action_today:
+        switch (id) {
+                case android.R.id.home:
+                    finish();
+                    return true;
+                case R.id.action_today:
                 mWeekView.goToToday();
                 return true;
             case R.id.action_day_view:
@@ -104,11 +111,11 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
                     mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
                 }
-                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     /**
      * Set up a date time interpreter which will show short date values when in week view and long
