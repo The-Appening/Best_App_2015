@@ -273,33 +273,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             return fragment;
 
         }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
-            ListView listView = (ListView) rootView.findViewById(R.id.ClistView);
-            listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Contactlist));
-
-
-<<<<<<< HEAD
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> arg0, View arg1,
-                                        int position, long arg3) {
-
-
-                    Intent intent = new Intent(getActivity(), Utility.class);
-                    startActivity(intent);
-
-
-                }
-            });
-
-=======
->>>>>>> origin/master
-            return rootView;        }
     }
 
 }
