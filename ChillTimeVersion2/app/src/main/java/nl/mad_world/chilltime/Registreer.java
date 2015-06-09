@@ -1,14 +1,13 @@
 package nl.mad_world.chilltime;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.EditText;
 
-import java.util.ArrayList;
+import com.parse.Parse;
+import com.parse.ParseObject;
 
 
 public class Registreer extends ActionBarActivity {
@@ -17,10 +16,22 @@ public class Registreer extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registreer);
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "wxutoacSUnKAIN5NxgCm7QvHqmrw2VoVlm7wkMrp", "5cfOao5AJYe6d5H1LpuIFwK4mXev14jbZrNZADZB");
     }
 
 
-    public void Aanmelden(View view){
+
+        public void Save(View view){
+        Savein();
+
+        Intent intent = new Intent(this, MainActivity.class);
+
+        startActivity(intent);
+
+    }
+    public void Savein(){
+
         EditText fNameET = (EditText) findViewById(R.id.fName);
         String fName = fNameET.getText().toString();
 
@@ -39,19 +50,14 @@ public class Registreer extends ActionBarActivity {
         EditText emailET = (EditText) findViewById(R.id.email);
         String email = emailET.getText().toString();
 
-        System.out.println(fName);
-        System.out.println(insertion);
-        System.out.println(sName);
-        System.out.println(uName);
-        System.out.println(password);
-        System.out.println(email);
-
-        /*
-        Intent intent = new Intent(this, Group.class);
-
-        startActivity(intent);
-        */
+        ParseObject UserSave = new ParseObject("User");
+        UserSave.put("Voornaam", fName);
+        UserSave.put("Tussen", insertion);
+        UserSave.put("Achternaam", sName);
+        UserSave.put("Email", password);
+        UserSave.put("Gebruikersnaam", uName);
+        UserSave.put("Wachtwoord", email);
+        UserSave.saveInBackground();
     }
-
 
 }
