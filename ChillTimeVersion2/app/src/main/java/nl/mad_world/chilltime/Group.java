@@ -10,11 +10,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.view.ContextMenu;
+import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 
 import java.util.Locale;
 
@@ -247,8 +251,48 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
+            ListView listView = (ListView) rootView.findViewById(R.id.ClistView);
+            listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Contactlist));
+            registerForContextMenu(listView);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1,
+                                        int position, long arg3) {
+
+                    Intent intent = new Intent(getActivity(), Contact.class);
+                    startActivity(intent);
+
+                }
+            });
+            return rootView;
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            menu.setHeaderTitle("Context Menu");
+            menu.add(0, v.getId(), 0, "Verwijderen");
+        }
+
+        @Override
+        public boolean onContextItemSelected(MenuItem item) {
+            if(item.getTitle()=="Verwijderen"){
+                //TODO maken functie die contact verwijdert.
+               // voorbeeldfunctienaam(item.getItemId());
+            }
+            else {
+                return false;
+            }
+            return true;
+        }
+
+        private static final String ARG_SECTION_NUMBER = "section_number";
         /**
          * Returns a new instance of this fragment for the given section
          * number.
