@@ -6,23 +6,23 @@
 
     <item android:id="@+id/addEvent"
           android:title="@string/addevent"
-          ChillTime:showAsAction="ifRoom"/>
+          ChillTime:showAsAction="never"/>
 
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/action_today"
               android:title="Vandaag"
-              android:orderInCategory="1"
+              android:orderInCategory="2"
               ChillTime:showAsAction="always"/>
         <item android:id="@+id/action_three_day_view"
               android:title="3 Dagen"
-              android:orderInCategory="2"
-              ChillTime:showAsAction="always"/>
-        <item android:id="@+id/action_week_view"
-              android:title="7 Dagen"
               android:orderInCategory="3"
               ChillTime:showAsAction="always"
               android:checked="true"/>
+        <item android:id="@+id/action_week_view"
+              android:title="7 Dagen"
+              android:orderInCategory="4"
+              ChillTime:showAsAction="always"/>
 
     </group>
 </menu>

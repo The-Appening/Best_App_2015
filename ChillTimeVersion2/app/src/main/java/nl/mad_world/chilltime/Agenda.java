@@ -20,7 +20,10 @@ import java.util.List;
 import java.util.Locale;
 
 
-
+/**
+ * Created by Raquib-ul-Alam Kanak on 7/21/2014.
+ * Website: http://alamkanak.github.io/
+ */
 public class Agenda extends ActionBarActivity implements WeekView.MonthChangeListener,
         WeekView.EventClickListener, WeekView.EventLongPressListener {
 
@@ -150,43 +153,36 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
         // Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
 
+        String name1 = "Project Les";
         Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 3);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth - 1);
-        startTime.set(Calendar.YEAR, newYear);
-        Calendar endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR, 1);
-        endTime.set(Calendar.MONTH, newMonth - 1);
-        WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime), startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_01));
-        events.add(event);
-
-        startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 8);
         startTime.set(Calendar.MINUTE, 30);
-        startTime.set(Calendar.DAY_OF_MONTH, 10);
         startTime.set(Calendar.MONTH, newMonth-1);
         startTime.set(Calendar.YEAR, newYear);
+        Calendar endTime = (Calendar) startTime.clone();
         endTime = (Calendar) startTime.clone();
         endTime.set(Calendar.HOUR_OF_DAY, 11);
         endTime.set(Calendar.MINUTE, 20);
-        endTime.set(Calendar.MONTH, newMonth-1);
-        event = new WeekViewEvent(10, getEventTitle(startTime), startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_02));
+        endTime.set(Calendar.MONTH, newMonth - 1);
+        WeekViewEvent event = new WeekViewEvent(1, name1, startTime, endTime);
+        event.setColor(getResources().getColor(R.color.event_color_01));
         events.add(event);
 
+
+        String name2 = "Project";
         startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 11);
-        startTime.set(Calendar.DAY_OF_MONTH, 11);
         startTime.set(Calendar.MINUTE, 00);
+        startTime.set(Calendar.DAY_OF_MONTH, 11);
         startTime.set(Calendar.MONTH, newMonth-1);
         startTime.set(Calendar.YEAR, newYear);
         endTime = (Calendar) startTime.clone();
         endTime.set(Calendar.HOUR_OF_DAY, 15);
-        endTime.set(Calendar.MINUTE, 0);
-        event = new WeekViewEvent(10, getEventTitle(startTime), startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_03));
+        endTime.set(Calendar.MINUTE, 00);
+        endTime.set(Calendar.DAY_OF_MONTH, 11);
+        endTime.set(Calendar.MONTH, newMonth-1);
+        event = new WeekViewEvent(2, name2, startTime, endTime);
+        event.setColor(getResources().getColor(R.color.event_color_02));
         events.add(event);
 
 
@@ -211,5 +207,4 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
 
 
     }
-
 }
