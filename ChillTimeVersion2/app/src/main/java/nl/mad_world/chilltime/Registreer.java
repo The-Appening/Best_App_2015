@@ -22,12 +22,13 @@ public class Registreer extends ActionBarActivity {
 
 
     public void Save(View view) {
-
+        /*
         Runnable r = new Runnable() {
-            public void run() {
+            public void run() { */
                 saveRegistrationInDb();
-            }
-        };
+                System.out.println("SAVEREGISTRATIONINDB AANGEROEPEN");
+   /*         }
+        }; */
 
         Intent intent = new Intent(this, MainActivity.class);
 
