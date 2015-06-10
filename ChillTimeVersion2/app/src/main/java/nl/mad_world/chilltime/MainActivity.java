@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -18,9 +19,16 @@ public class MainActivity extends ActionBarActivity {
 
 
     public void Login(View view){
-        Intent intent = new Intent(this, Group.class);
+        EditText pWord = (EditText) findViewById(R.id.password);
+        String pWordString = pWord.getText().toString();
 
-        startActivity(intent);
+        EditText uName = (EditText) findViewById(R.id.username);
+        String uNameString = uName.getText().toString();
+        if(pWordString.equals("admin") && uNameString.equals("admin")) {
+            Intent intent = new Intent(this, Group.class);
+
+            startActivity(intent);
+        }
     }
 
     public void Registreer(View view){
