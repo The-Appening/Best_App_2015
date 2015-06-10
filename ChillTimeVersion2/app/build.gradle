@@ -21,7 +21,6 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
-    compile 'com.github.tyczj:ExtendedCalendarView:58babe0071'
     compile files('src/main/libs/Parse-1.9.2.jar')
     compile files('src/main/libs/ParseCrashReporting-1.9.2.jar')
     compile files('src/main/libs/ParseFacebookUtilsV4-1.9.2.jar')
