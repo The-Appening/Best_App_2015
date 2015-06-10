@@ -20,10 +20,6 @@ import java.util.List;
 import java.util.Locale;
 
 
-/**
- * Created by Raquib-ul-Alam Kanak on 7/21/2014.
- * Website: http://alamkanak.github.io/
- */
 public class Agenda extends ActionBarActivity implements WeekView.MonthChangeListener,
         WeekView.EventClickListener, WeekView.EventLongPressListener {
 
@@ -32,6 +28,29 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
     private static final int TYPE_WEEK_VIEW = 3;
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
+
+    private String name = "";
+    private String name2 = "";
+    private int bhour;
+    private int bmin;
+    private int bday;
+    private int bmonth;
+    private int byear;
+    private int ehour;
+    private int emin;
+    private int eday;
+    private int emonth;
+    private int eyear;
+    private int bhour_2;
+    private int bmin_2;
+    private int bday_2;
+    private int bmonth_2;
+    private int byear_2;
+    private int ehour_2;
+    private int emin_2;
+    private int eday_2;
+    private int emonth_2;
+    private int eyear_2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,40 +166,48 @@ public class Agenda extends ActionBarActivity implements WeekView.MonthChangeLis
         });
     }
 
+    public void setbhour(int bhour) {
+        this.bhour = mWeekViewType;
+    }
+
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
 
         // Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
 
-        String name1 = "Project Les";
+
+
         Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 8);
-        startTime.set(Calendar.MINUTE, 30);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
+        startTime.set(Calendar.HOUR_OF_DAY, bhour);
+        startTime.set(Calendar.MINUTE, bmin);
+        startTime.set(Calendar.DAY_OF_MONTH, bday);
+        startTime.set(Calendar.MONTH, bmonth-1);
+        startTime.set(Calendar.YEAR, byear);
         Calendar endTime = (Calendar) startTime.clone();
         endTime = (Calendar) startTime.clone();
-        endTime.set(Calendar.HOUR_OF_DAY, 11);
-        endTime.set(Calendar.MINUTE, 20);
-        endTime.set(Calendar.MONTH, newMonth - 1);
-        WeekViewEvent event = new WeekViewEvent(1, name1, startTime, endTime);
+        endTime.set(Calendar.HOUR_OF_DAY, ehour);
+        startTime.set(Calendar.DAY_OF_MONTH, eday);
+        endTime.set(Calendar.MINUTE, emin);
+        endTime.set(Calendar.MONTH, emonth - 1);
+        endTime.set(Calendar.YEAR, eyear);
+
+        WeekViewEvent event = new WeekViewEvent(1, name, startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_01));
         events.add(event);
 
-
-        String name2 = "Project";
         startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 11);
-        startTime.set(Calendar.MINUTE, 00);
-        startTime.set(Calendar.DAY_OF_MONTH, 11);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
+        startTime.set(Calendar.HOUR_OF_DAY, bhour_2);
+        startTime.set(Calendar.MINUTE, bmin_2);
+        startTime.set(Calendar.DAY_OF_MONTH, bday_2);
+        startTime.set(Calendar.MONTH, bmonth_2 - 1);
+        startTime.set(Calendar.YEAR, byear_2);
         endTime = (Calendar) startTime.clone();
-        endTime.set(Calendar.HOUR_OF_DAY, 15);
-        endTime.set(Calendar.MINUTE, 00);
-        endTime.set(Calendar.DAY_OF_MONTH, 11);
-        endTime.set(Calendar.MONTH, newMonth-1);
+        endTime.set(Calendar.HOUR_OF_DAY, ehour_2);
+        endTime.set(Calendar.MINUTE, emin_2);
+        endTime.set(Calendar.DAY_OF_MONTH, eday_2);
+        endTime.set(Calendar.MONTH, emonth_2 - 1);
+        endTime.set(Calendar.YEAR, eyear_2);
         event = new WeekViewEvent(2, name2, startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_02));
         events.add(event);

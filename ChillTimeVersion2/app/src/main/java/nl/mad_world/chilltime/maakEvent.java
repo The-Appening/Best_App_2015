@@ -1,23 +1,32 @@
 package nl.mad_world.chilltime;
 
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 
-public class maakEvent extends Activity {
+public class maakEvent extends ActionBarActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Hello User",
-                Toast.LENGTH_SHORT);
-
-        toast.show();
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }
 

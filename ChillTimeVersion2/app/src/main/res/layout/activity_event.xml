@@ -5,20 +5,82 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <DatePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/datePicker"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="42dp"
-            android:calendarViewShown="false"/>
-
-    <TimePicker
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/timePicker"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/StartMin"
+        android:hint="Minuten"
+        android:width="120dp"
+        android:layout_marginTop="94dp"
+        android:layout_below="@+id/eventName"
+        android:layout_alignStart="@+id/eventName"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/StartDay"
+        android:hint="Dag"
+        android:width="120dp"
+        android:layout_above="@+id/StartMonth"
+        android:layout_alignEnd="@+id/eventName"
+        android:layout_marginBottom="25dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/StartMonth"
+        android:width="120dp"
+        android:hint="Maand"
+        android:layout_alignTop="@+id/StartMin"
+        android:layout_alignStart="@+id/StartDay"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventName"
+        android:width="250dp"
+        android:hint="Titel"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aanmaken"
+        android:id="@+id/create"
+        android:width="120dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/datePicker"
-        android:layout_marginBottom="94dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/StartHour"
+        android:width="120dp"
+        android:hint="Uur"
+        android:layout_alignTop="@+id/StartDay"
+        android:layout_alignStart="@+id/StartMin"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/StartYear"
+        android:hint="Jaar"
+        android:width="120dp"
+        android:layout_below="@+id/StartMin"
+        android:layout_alignStart="@+id/StartMin"
+        android:layout_marginTop="25dp"/>
+
 </RelativeLayout>
