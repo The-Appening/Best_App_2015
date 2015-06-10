@@ -38,11 +38,19 @@ public class Registreer extends ActionBarActivity {
 
     public void saveRegistrationInDb() {
 
+        String insertion;
+
         EditText fNameET = (EditText) findViewById(R.id.fName);
         String fName = fNameET.getText().toString();
 
         EditText insertionET = (EditText) findViewById(R.id.insertion);
-        String insertion = insertionET.getText().toString();
+        if(insertionET != null) {
+            insertion = insertionET.getText().toString();
+        }
+        else{
+            insertion = null;
+        }
+
 
         EditText sNameET = (EditText) findViewById(R.id.sName);
         String sName = sNameET.getText().toString();
