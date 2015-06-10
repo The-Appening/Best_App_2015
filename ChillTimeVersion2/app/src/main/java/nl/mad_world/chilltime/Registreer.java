@@ -1,5 +1,6 @@
 package nl.mad_world.chilltime;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,6 +9,9 @@ import android.widget.EditText;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 
 public class Registreer extends ActionBarActivity {
@@ -22,18 +26,7 @@ public class Registreer extends ActionBarActivity {
 
 
     public void Save(View view) {
-        /*
-        Runnable r = new Runnable() {
-            public void run() { */
-                saveRegistrationInDb();
-                System.out.println("SAVEREGISTRATIONINDB AANGEROEPEN");
-   /*         }
-        }; */
-
-        Intent intent = new Intent(this, MainActivity.class);
-
-        startActivity(intent);
-
+        saveRegistrationInDb();
     }
 
     public void saveRegistrationInDb() {
@@ -51,7 +44,6 @@ public class Registreer extends ActionBarActivity {
             insertion = null;
         }
 
-
         EditText sNameET = (EditText) findViewById(R.id.sName);
         String sName = sNameET.getText().toString();
 
@@ -68,10 +60,38 @@ public class Registreer extends ActionBarActivity {
         UserSave.put("Voornaam", fName);
         UserSave.put("Tussen", insertion);
         UserSave.put("Achternaam", sName);
-        UserSave.put("Email", password);
         UserSave.put("Gebruikersnaam", uName);
-        UserSave.put("Wachtwoord", email);
-        UserSave.saveInBackground();
+        UserSave.put("Wachtwoord", password);
+        if(isEmailValid(email)==true) {
+            UserSave.put("Email", email);
+            UserSave.saveInBackground();
+
+            Intent intent = new Intent(this, MainActivity.class);
+
+            startActivity(intent);
+        }
+        else{
+            new AlertDialog.Builder(this)
+                    .setTitle("Melding.")
+                    .setMessage("De ingevulde e-mail is geen geldig e-mail adres.")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setCancelable(true)
+                    .show();
+        }
+    }
+
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
     }
 
 }
