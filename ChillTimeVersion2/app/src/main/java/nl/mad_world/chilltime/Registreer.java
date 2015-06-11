@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.parse.Parse;
-import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -24,12 +25,32 @@ public class Registreer extends ActionBarActivity {
         Parse.initialize(this, "wxutoacSUnKAIN5NxgCm7QvHqmrw2VoVlm7wkMrp", "5cfOao5AJYe6d5H1LpuIFwK4mXev14jbZrNZADZB");
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ViewGroup group = (ViewGroup) findViewById(R.id.rlayout);
+        clearForm(group);
+    }
+
+    private void clearForm(ViewGroup group)
+    {
+        for (int i = 0, count = group.getChildCount(); i < count; ++i) {
+            View view = group.getChildAt(i);
+            if (view instanceof EditText) {
+                ((EditText)view).setText("");
+            }
+
+            if(view instanceof ViewGroup && (((ViewGroup)view).getChildCount() > 0))
+                clearForm((ViewGroup)view);
+        }
+    }
 
     public void Save(View view) {
         saveRegistrationInDb();
     }
 
     public void saveRegistrationInDb() {
+        ParseUser user = new ParseUser();
 
         String insertion;
 
@@ -56,15 +77,14 @@ public class Registreer extends ActionBarActivity {
         EditText emailET = (EditText) findViewById(R.id.email);
         String email = emailET.getText().toString();
 
-        ParseObject UserSave = new ParseObject("User");
-        UserSave.put("Voornaam", fName);
-        UserSave.put("Tussen", insertion);
-        UserSave.put("Achternaam", sName);
-        UserSave.put("Gebruikersnaam", uName);
-        UserSave.put("Wachtwoord", password);
+        user.put("Voornaam", fName);
+        user.put("Tussen", insertion);
+        user.put("Achternaam", sName);
+        user.setUsername(uName);
+        user.setPassword(password);
         if(isEmailValid(email)==true) {
-            UserSave.put("Email", email);
-            UserSave.saveInBackground();
+            user.setEmail(email);
+            user.signUpInBackground();
 
             Intent intent = new Intent(this, MainActivity.class);
 
