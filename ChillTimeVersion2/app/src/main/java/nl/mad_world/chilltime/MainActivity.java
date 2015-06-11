@@ -1,5 +1,6 @@
 package nl.mad_world.chilltime;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -39,10 +40,19 @@ public class MainActivity extends ActionBarActivity {
                 if (user != null) {
                     startActivity(intent);
                 } else {
-                    e.getMessage();
+                    showAlert("De door u ingevulde gebruikersnaam en/of wachtwoord zijn incorrect.");
                 }
             }
         });
+    }
+
+    public void showAlert(String message){
+        new AlertDialog.Builder(this)
+                .setTitle("Melding.")
+                .setMessage(message)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(true)
+                .show();
     }
 
     public void Registreer(View view){
