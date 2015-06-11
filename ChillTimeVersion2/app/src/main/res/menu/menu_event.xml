@@ -6,10 +6,10 @@
 
     <item android:id="@+id/addEvent"
           android:title="@string/addevent"
-          ChillTime:showAsAction="never"/>
+          ChillTime:showAsAction="withText"/>
 
 
-    <group android:checkableBehavior="single">
+
         <item android:id="@+id/action_today"
               android:title="Vandaag"
               android:orderInCategory="1"
@@ -26,5 +26,4 @@
               android:orderInCategory="3"
               ChillTime:showAsAction="always"/>
 
-    </group>
 </menu>
