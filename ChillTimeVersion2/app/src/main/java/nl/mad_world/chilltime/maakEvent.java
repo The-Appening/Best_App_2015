@@ -30,6 +30,7 @@ public class maakEvent extends ActionBarActivity implements WeekView.MonthChange
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
 
+    //Variables to create an event//
     private String name = "";
     private String name2 = "";
     private int bhour;
@@ -53,9 +54,9 @@ public class maakEvent extends ActionBarActivity implements WeekView.MonthChange
     private int emonth_2;
     private int eyear_2;
 
-    public String getName() {
-        return name;
-    }
+
+    // BEGIN of Getters and Setters//
+    public String getName() { return name;}
 
     public void setName(String name) {
         this.name = name;
@@ -225,15 +226,16 @@ public class maakEvent extends ActionBarActivity implements WeekView.MonthChange
         return eyear_2;
     }
 
-    public void setEyear_2(int eyear_2) {
-        this.eyear_2 = eyear_2;
-    }
+    public void setEyear_2(int eyear_2) {this.eyear_2 = eyear_2;}
+    // END of Getters and Setters
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
+        //Back button Title Bar//
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get a reference for the week view in the layout.
@@ -349,7 +351,7 @@ public class maakEvent extends ActionBarActivity implements WeekView.MonthChange
            @Override
             public String interpretTime(int hour) {
 
-                return hour > 11 ? (hour + 1) + ":00": hour == 24 ? (hour = 0)+ ":00": (hour == 0 ? "0:00" : hour + ":00");
+                return hour > 11 ? (hour + 1) + ":00": hour == 24 ? (hour - 24)+ ":00": (hour == 0 ? "0:00" : hour + ":00");
             }
         });
     }
