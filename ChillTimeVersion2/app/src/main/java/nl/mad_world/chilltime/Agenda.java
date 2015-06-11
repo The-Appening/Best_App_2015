@@ -3,6 +3,7 @@ package nl.mad_world.chilltime;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 
 public class Agenda extends ActionBarActivity {
@@ -29,30 +30,85 @@ public class Agenda extends ActionBarActivity {
 
     // BEGIN OF SETTERS //
 
-    public void setName(String name) {maakEvent.name = name;}
+    public void setName(String name) {
+        EditText namer = (EditText) findViewById(R.id.eventName);
+        name = namer.getText().toString();
+        maakEvent.name = name;
+    }
 
-    public void setName2(String name2) {maakEvent.name2 = name2;}
+    public void setBhour(int bhour, int textString) {
+        EditText hour = (EditText) findViewById(R.id.StartHour);
+        textString = Integer.parseInt(hour.getText().toString());
+        bhour = textString;
+        maakEvent.bhour = bhour;
+    }
 
-    public void setBhour(int bhour) {maakEvent.bhour = bhour;}
+    public void setBmin(int bmin, int textString) {
+        EditText min = (EditText) findViewById(R.id.StartMin);
+        textString = Integer.parseInt(min.getText().toString());
+        bmin = textString;
+        maakEvent.bmin = bmin;
+    }
 
-    public void setBmin(int bmin) {maakEvent.bmin = bmin;}
+    public void setBday(int bday, int textString) {
+        EditText min = (EditText) findViewById(R.id.StartDay);
+        textString = Integer.parseInt(min.getText().toString());
+        bday = textString;
+        maakEvent.bday = bday;
+    }
 
-    public void setBday(int bday) {maakEvent.bday = bday;}
+    public void setBmonth(int bmonth, int textString) {
+        EditText month = (EditText) findViewById(R.id.StartMonth);
+        textString = Integer.parseInt(month.getText().toString());
+        bmonth = textString;
+        maakEvent.bmonth = bmonth;
+    }
 
-    public void setBmonth(int bmonth) {maakEvent.bmonth = bmonth;}
 
-    public void setEhour(int ehour) {maakEvent.ehour = ehour;}
+    public void setByear(int byear, int textString) {
+        EditText year = (EditText) findViewById(R.id.StartYear);
+        textString = Integer.parseInt(year.getText().toString());
+        byear = textString;
+        maakEvent.byear = byear;
+    }
 
-    public void setByear(int byear) {maakEvent.byear = byear;}
+    public void setEmin(int emin, int textString) {
+        EditText min = (EditText) findViewById(R.id.EndMin);
+        textString = Integer.parseInt(min.getText().toString());
+        emin = textString;
+        maakEvent.emin = emin;
+    }
 
-    public void setEmin(int emin) {maakEvent.emin = emin;}
+    public void setEhour(int ehour, int textString) {
+        EditText hour = (EditText) findViewById(R.id.EndHour);
+        textString = Integer.parseInt(hour.getText().toString());
+        ehour = textString;
+        maakEvent.ehour = ehour;
+    }
 
-    public void setEday(int eday) {maakEvent.eday = eday;}
+    public void setEday(int eday, int textString) {
+        EditText day = (EditText) findViewById(R.id.EndDay);
+        textString = Integer.parseInt(day.getText().toString());
+        eday = textString;
+        maakEvent.eday = eday;
+    }
 
-    public void setEmonth(int emonth) {maakEvent.emonth = emonth;}
+    public void setEmonth(int emonth, int textString) {
+        EditText month = (EditText) findViewById(R.id.EndMonth);
+        textString = Integer.parseInt(month.getText().toString());
+        emonth = textString;
+        maakEvent.emonth = emonth;
+    }
 
-    public void setEyear(int eyear) {maakEvent.eyear = eyear;}
+    public void setEyear(int eyear, int textString) {
+        EditText year = (EditText) findViewById(R.id.EndYear);
+        textString = Integer.parseInt(year.getText().toString());
+        eyear = textString;
+        maakEvent.eyear = eyear;
+    }
 
+
+    /*
     public void setBhour_2(int bhour_2) {maakEvent.bhour_2 = bhour_2;}
 
     public void setBmin_2(int bmin_2) {maakEvent.bmin_2 = bmin_2;}
@@ -73,6 +129,7 @@ public class Agenda extends ActionBarActivity {
 
     public void setEyear_2(int eyear_2) {maakEvent.eyear_2 = eyear_2;}
 
+*/
     // END OF SETTERS //
 
 }
