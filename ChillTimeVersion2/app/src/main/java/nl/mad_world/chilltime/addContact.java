@@ -24,31 +24,28 @@ public class addContact extends ActionBarActivity {
 
     private ListView monthsListView;
     private ArrayAdapter arrayAdapter;
-    private ArrayList Contact;
+    private ArrayList ContactList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-
-        Parse.initialize(this, "wxutoacSUnKAIN5NxgCm7QvHqmrw2VoVlm7wkMrp", "5cfOao5AJYe6d5H1LpuIFwK4mXev14jbZrNZADZB");
     }
 
     public void SearchContact(View view){
         monthsListView = (ListView) findViewById(R.id.AddContactList);
+        getContactData();
 
         // this-The current activity context.
         // Second param is the resource Id for list layout row item
         // Third param is input array
-        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Contact);
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ContactList);
         monthsListView.setAdapter(arrayAdapter);
     }
 
     public void getContactData(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
-        query.whereEqualTo("Voornaam", "Roy");
+        query.whereEqualTo("Voornaam", "roy");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> scoreList, ParseException e) {
                 if (e == null) {
@@ -58,7 +55,7 @@ public class addContact extends ActionBarActivity {
                 }
 
                 for(int i = 0; i > scoreList.size(); i++){
-                    Contact.add(scoreList.get(i));
+                    ContactList.add(scoreList.get(i));
                 }
             }
         });
