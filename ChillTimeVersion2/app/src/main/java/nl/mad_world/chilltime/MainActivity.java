@@ -8,6 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -24,11 +28,18 @@ public class MainActivity extends ActionBarActivity {
 
         EditText uName = (EditText) findViewById(R.id.username);
         String uNameString = uName.getText().toString();
-        if(pWordString.equals("admin") && uNameString.equals("admin")) {
-            Intent intent = new Intent(this, Group.class);
 
-            startActivity(intent);
-        }
+        final Intent intent = new Intent(this, Group.class);
+
+        ParseUser.logInInBackground(uNameString, pWordString, new LogInCallback() {
+            public void done(ParseUser user, ParseException e) {
+                if (user != null) {
+                    startActivity(intent);
+                } else {
+                    e.getMessage();
+                }
+            }
+        });
     }
 
     public void Registreer(View view){
