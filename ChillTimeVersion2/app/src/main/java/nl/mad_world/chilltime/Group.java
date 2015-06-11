@@ -199,7 +199,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
                                         int position, long arg3) {
 
 
-                    Intent intent = new Intent(getActivity(), Agenda.class);
+                    Intent intent = new Intent(getActivity(), maakEvent.class);
                     startActivity(intent);
 
 
