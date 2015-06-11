@@ -5,7 +5,8 @@
       tools:context="ChillTime">
 
     <item android:id="@+id/addEvent"
-          android:title="@string/addevent"
+          android:title="+"
+          android:icon="@drawable/plus"
           ChillTime:showAsAction="withText"/>
 
 

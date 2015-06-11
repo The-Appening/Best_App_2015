@@ -31,203 +31,93 @@ public class maakEvent extends ActionBarActivity implements WeekView.MonthChange
     private WeekView mWeekView;
 
     //Variables to create an event//
-    private String name = "";
-    private String name2 = "";
-    private int bhour;
-    private int bmin;
-    private int bday;
-    private int bmonth;
-    private int byear;
-    private int ehour;
-    private int emin;
-    private int eday;
-    private int emonth;
-    private int eyear;
-    private int bhour_2;
-    private int bmin_2;
-    private int bday_2;
-    private int bmonth_2;
-    private int byear_2;
-    private int ehour_2;
-    private int emin_2;
-    private int eday_2;
-    private int emonth_2;
-    private int eyear_2;
+    public static String name = "";
+    public static String name2 = "";
+    public static int bhour;
+    public static int bmin;
+    public static int bday;
+    public static int bmonth;
+    public static int byear;
+    public static int ehour;
+    public static int emin;
+    public static int eday;
+    public static int emonth;
+    public static int eyear;
+    public static int bhour_2;
+    public static int bmin_2;
+    public static int bday_2;
+    public static int bmonth_2;
+    public static int byear_2;
+    public static int ehour_2;
+    public static int emin_2;
+    public static int eday_2;
+    public static int emonth_2;
+    public static int eyear_2;
 
 
-    // BEGIN of Getters and Setters//
+    // BEGIN OF GETTERS //
+
     public String getName() { return name;}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getName2() {return name2;}
 
-    public String getName2() {
-        return name2;
-    }
+    public int getBhour() { return bhour;}
 
-    public void setName2(String name2) {
-        this.name2 = name2;
-    }
+    public int getBmin() {return bmin;}
 
-    public int getBhour() {
-        return bhour;
-    }
+    public int getBday() {return bday;}
 
-    public void setBhour(int bhour) {
-        this.bhour = bhour;
-    }
-
-    public int getBmin() {
-        return bmin;
-    }
-
-    public void setBmin(int bmin) {
-        this.bmin = bmin;
-    }
-
-    public int getBday() {
-        return bday;
-    }
-
-    public void setBday(int bday) {
-        this.bday = bday;
-    }
-
-    public int getBmonth() {
-        return bmonth;
-    }
-
-    public void setBmonth(int bmonth) {
-        this.bmonth = bmonth;
-    }
+    public int getBmonth() {return bmonth;}
 
     public int getEhour() {
         return ehour;
     }
 
-    public void setEhour(int ehour) {
-        this.ehour = ehour;
-    }
-
-    public int getByear() {
-        return byear;
-    }
-
-    public void setByear(int byear) {
-        this.byear = byear;
-    }
+    public int getByear() {return byear;}
 
     public int getEmin() {
         return emin;
     }
 
-    public void setEmin(int emin) {
-        this.emin = emin;
-    }
-
-    public int getEday() {
-        return eday;
-    }
-
-    public void setEday(int eday) {
-        this.eday = eday;
-    }
+    public int getEday() {return eday;}
 
     public int getEmonth() {
         return emonth;
     }
 
-    public void setEmonth(int emonth) {
-        this.emonth = emonth;
-    }
-
-    public int getEyear() {
-        return eyear;
-    }
-
-    public void setEyear(int eyear) {
-        this.eyear = eyear;
-    }
+    public int getEyear() { return eyear;}
 
     public int getBhour_2() {
         return bhour_2;
     }
 
-    public void setBhour_2(int bhour_2) {
-        this.bhour_2 = bhour_2;
-    }
-
-    public int getBmin_2() {
-        return bmin_2;
-    }
-
-    public void setBmin_2(int bmin_2) {
-        this.bmin_2 = bmin_2;
-    }
+    public int getBmin_2() {return bmin_2;}
 
     public int getBday_2() {
         return bday_2;
     }
 
-    public void setBday_2(int bday_2) {
-        this.bday_2 = bday_2;
-    }
-
-    public int getBmonth_2() {
-        return bmonth_2;
-    }
-
-    public void setBmonth_2(int bmonth_2) {
-        this.bmonth_2 = bmonth_2;
-    }
+    public int getBmonth_2() {return bmonth_2;}
 
     public int getByear_2() {
         return byear_2;
     }
 
-    public void setByear_2(int byear_2) {
-        this.byear_2 = byear_2;
-    }
-
-    public int getEhour_2() {
-        return ehour_2;
-    }
-
-    public void setEhour_2(int ehour_2) {
-        this.ehour_2 = ehour_2;
-    }
+    public int getEhour_2() {return ehour_2;}
 
     public int getEmin_2() {
         return emin_2;
     }
 
-    public void setEmin_2(int emin_2) {
-        this.emin_2 = emin_2;
-    }
-
-    public int getEday_2() {
-        return eday_2;
-    }
-
-    public void setEday_2(int eday_2) {
-        this.eday_2 = eday_2;
-    }
+    public int getEday_2() {return eday_2;}
 
     public int getEmonth_2() {
         return emonth_2;
     }
 
-    public void setEmonth_2(int emonth_2) {
-        this.emonth_2 = emonth_2;
-    }
+    public int getEyear_2() {return eyear_2;}
 
-    public int getEyear_2() {
-        return eyear_2;
-    }
-
-    public void setEyear_2(int eyear_2) {this.eyear_2 = eyear_2;}
-    // END of Getters and Setters
+    // END OF GETTERS //
 
 
     @Override
