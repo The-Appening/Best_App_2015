@@ -79,7 +79,11 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         }
     }
 
+    public void AddContact(View view){
+        Intent intent = new Intent(this, addContact.class);
 
+        startActivity(intent);
+    }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -269,6 +273,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
                 }
             });
+
             return rootView;
         }
 
@@ -316,6 +321,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             return fragment;
 
         }
+
     }
 
 }

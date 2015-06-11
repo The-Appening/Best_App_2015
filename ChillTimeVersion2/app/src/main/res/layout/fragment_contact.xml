@@ -13,7 +13,8 @@
         android:text="Toevoegen"
         android:id="@+id/button6"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="AddContact"/>
 
     <ListView
         android:layout_width="wrap_content"

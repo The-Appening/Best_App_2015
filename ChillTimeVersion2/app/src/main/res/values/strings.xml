@@ -29,6 +29,7 @@
     <string name="action_three_day_view">3 day view</string>
     <string name="action_week_view">Week view</string>
     <string name="addevent">Add</string>
+    <string name="title_activity_add_contact">addContact</string>
 
 
 </resources>
