@@ -30,6 +30,13 @@
     <string name="action_week_view">Week view</string>
     <string name="addevent">Add</string>
     <string name="title_activity_add_contact">addContact</string>
+    <string name="customize">Customize</string>
+    <string name="show_dialog">Show Dialog</string>
+    <string name="undo">Undo</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 
 </resources>

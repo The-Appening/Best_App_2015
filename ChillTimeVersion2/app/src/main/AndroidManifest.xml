@@ -41,18 +41,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Agenda"
-            android:label="Agenda"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".maakEvent"
-            android:label="Maak Afspraak"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".addContact"
             android:label="@string/title_activity_add_contact" >
+        </activity>
+        <activity
+            android:name=".CaldroidActivity"
+            android:label="Agenda" >
         </activity>
     </application>
 
