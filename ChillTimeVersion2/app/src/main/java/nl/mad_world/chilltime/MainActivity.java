@@ -48,7 +48,6 @@ public class MainActivity extends ActionBarActivity {
 
     public void showAlert(String message){
         new AlertDialog.Builder(this)
-                .setTitle("Melding.")
                 .setMessage(message)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setCancelable(true)
