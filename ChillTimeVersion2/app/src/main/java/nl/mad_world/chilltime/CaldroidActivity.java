@@ -17,7 +17,6 @@ import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -26,11 +25,6 @@ public class CaldroidActivity extends FragmentActivity {
     private boolean undo = false;
     private CaldroidFragment caldroidFragment;
     private CaldroidFragment dialogCaldroidFragment;
-    ArrayList<String> getAll = new ArrayList<>();
-
-    /*private void setCustomResourceForDates() {
-        Calendar cal = Calendar.getInstance();
-    }*/
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -43,10 +37,6 @@ public class CaldroidActivity extends FragmentActivity {
         // **** If you want normal CaldroidFragment, use below line ****
         caldroidFragment = new CaldroidFragment();
 
-        // //////////////////////////////////////////////////////////////////////
-        // **** This is to show customized fragment. If you want customized
-        // version, uncomment below line ****
-//		 caldroidFragment = new CaldroidSampleCustomFragment();
 
         // Setup arguments
 
@@ -137,12 +127,8 @@ public class CaldroidActivity extends FragmentActivity {
     }
 
     public void getData() {
-        String[] id = new String[2];
-        id[0] = "7Z5rPIO4Aj";
-        id[1] = "DqQ6bfYQgO";
-
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
+        query.whereExists("ID");
         query.getFirstInBackground(new GetCallback<ParseObject>() {
 
             @Override
@@ -157,10 +143,10 @@ public class CaldroidActivity extends FragmentActivity {
                     Date start = arg0.getDate("StartDate");
                     Date end = arg0.getDate("EndDate");
 
-                    textView.setText("Titel: " + title + "\n" + "Begint op: " +  start + "\n" + "Eindigt op: " + end + "\n");
+                    textView.setText("Afspraak: " + title + "\n" + "Begint op: " + start + "\n" + "Eindigt op: " + end + "\n");
 
                 } else {
-                    Log.d("score", "Error: " + arg1.getMessage());
+                    Log.d("Afspraak", "Error: " + arg1.getMessage());
                 }
             }
         });
