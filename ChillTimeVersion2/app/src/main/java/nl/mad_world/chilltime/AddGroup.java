@@ -1,9 +1,16 @@
 package nl.mad_world.chilltime;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 
 public class AddGroup extends ActionBarActivity {
@@ -14,25 +21,18 @@ public class AddGroup extends ActionBarActivity {
         setContentView(R.layout.activity_add_group);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_group, menu);
-        return true;
-    }
+    public void SaveGroup(View view) {
+        ParseObject group = new ParseObject("Groups");
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        EditText gNameET = (EditText) findViewById(R.id.groupName);
+        String groupName = gNameET.getText().toString();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        group.put("Name", groupName);
+        group.saveInBackground();
 
-        return super.onOptionsItemSelected(item);
+        Intent intent = new Intent(this, Group.class);
+
+        startActivity(intent);
+
     }
 }

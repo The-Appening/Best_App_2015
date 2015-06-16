@@ -14,7 +14,8 @@
         android:text="Aanmaken"
         android:id="@+id/button5"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="AddAGroup" />
 
     <ListView
         android:layout_width="wrap_content"

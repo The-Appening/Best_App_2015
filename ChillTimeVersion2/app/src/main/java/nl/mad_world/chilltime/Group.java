@@ -149,6 +149,14 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         }
     }
 
+    public void AddAGroup(View view){
+
+        Intent intent = new Intent(this, AddGroup.class);
+
+        startActivity(intent);
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
