@@ -46,7 +46,7 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    public static void showAlert(String message){
+    public void showAlert(String message){
         new AlertDialog.Builder(this)
                 .setMessage(message)
                 .setIcon(android.R.drawable.ic_dialog_alert)
