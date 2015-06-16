@@ -90,8 +90,7 @@ public class Registreer extends ActionBarActivity {
         }
         else{
             new AlertDialog.Builder(this)
-                    .setTitle("Melding.")
-                    .setMessage("De ingevulde e-mail is geen geldig e-mail adres.")
+                    .setMessage("Het ingevulde e-mail adres is geen geldig e-mail adres.")
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setCancelable(true)
                     .show();
