@@ -55,7 +55,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:singleLine="true"/>
+        android:singleLine="true"
+        android:inputType="textCapSentences"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -161,17 +162,6 @@
         android:layout_below="@+id/StartYear"
         android:layout_centerHorizontal="true"
         android:id="@+id/space"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/ID"
-        android:width="120dp"
-        android:layout_above="@+id/EndHour"
-        android:layout_toEndOf="@+id/space"
-        android:hint="ID"/>
 
 </RelativeLayout>
 </ScrollView>

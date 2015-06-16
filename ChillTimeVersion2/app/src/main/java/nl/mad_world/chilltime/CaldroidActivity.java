@@ -1,11 +1,11 @@
 package nl.mad_world.chilltime;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +13,6 @@ import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -119,118 +118,15 @@ public class CaldroidActivity extends FragmentActivity {
 
         final TextView textView = (TextView) findViewById(R.id.textview);
 
-        final Button customizeButton = (Button) findViewById(R.id.customize_button);
 
-        // Customize the calendar
-        customizeButton.setOnClickListener(new View.OnClickListener() {
+        String text = "Titel: Project" + "\n";
+        text += "Begin: 16-06-2015 11:00" + "\n";
+        text += "Eind: 16-06-2015 15:00" + "\n";
 
-            @Override
-            public void onClick(View v) {
-                if (undo) {
-                    customizeButton.setText(getString(R.string.customize));
-                    textView.setText("");
-
-                    // Reset calendar
-                    caldroidFragment.clearDisableDates();
-                    caldroidFragment.clearSelectedDates();
-                    caldroidFragment.setMinDate(null);
-                    caldroidFragment.setMaxDate(null);
-                    caldroidFragment.setShowNavigationArrows(true);
-                    caldroidFragment.setEnableSwipe(true);
-                    caldroidFragment.refreshView();
-                    undo = false;
-                    return;
-                }
-
-                // Else
-                undo = true;
-                customizeButton.setText(getString(R.string.undo));
-                Calendar cal = Calendar.getInstance();
-
-                // Min date is last 7 days
-                cal.add(Calendar.DATE, -7);
-                Date minDate = cal.getTime();
-
-                // Max date is next 7 days
-                cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, 14);
-                Date maxDate = cal.getTime();
-
-                // Set selected dates
-                // From Date
-                cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, 2);
-                Date fromDate = cal.getTime();
-
-                // To Date
-                cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, 3);
-                Date toDate = cal.getTime();
-
-                // Set disabled dates
-                ArrayList<Date> disabledDates = new ArrayList<Date>();
-                for (int i = 5; i < 8; i++) {
-                    cal = Calendar.getInstance();
-                    cal.add(Calendar.DATE, i);
-                    disabledDates.add(cal.getTime());
-                }
-
-                // Customize
-                //caldroidFragment.setMinDate(minDate);
-                //caldroidFragment.setMaxDate(maxDate);
-                //caldroidFragment.setDisableDates(disabledDates);
-               //caldroidFragment.setSelectedDates(fromDate, toDate);
-                caldroidFragment.setShowNavigationArrows(false);
-                caldroidFragment.setEnableSwipe(true);
-
-                caldroidFragment.refreshView();
-
-                // Move to date
-                // cal = Calendar.getInstance();
-                // cal.add(Calendar.MONTH, 12);
-                // caldroidFragment.moveToDate(cal.getTime());
-
-                String text = "Titel: Project" + "\n";
-                text += "Begin: 16-06-2015 11:00" + "\n";
-                text += "Eind: 16-06-2015 15:00" + "\n";
-
-                textView.setText(text);
-            }
-        });
-
-        Button showDialogButton = (Button) findViewById(R.id.show_dialog_button);
+        textView.setText(text);
 
         final Bundle state = savedInstanceState;
-        showDialogButton.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // Setup caldroid to use as dialog
-                dialogCaldroidFragment = new CaldroidFragment();
-                dialogCaldroidFragment.setCaldroidListener(listener);
-
-                // If activity is recovered from rotation
-                final String dialogTag = "CALDROID_DIALOG_FRAGMENT";
-                if (state != null) {
-                    dialogCaldroidFragment.restoreDialogStatesFromKey(
-                            getSupportFragmentManager(), state,
-                            "DIALOG_CALDROID_SAVED_STATE", dialogTag);
-                    Bundle args = dialogCaldroidFragment.getArguments();
-                    if (args == null) {
-                        args = new Bundle();
-                        dialogCaldroidFragment.setArguments(args);
-                    }
-                } else {
-                    // Setup arguments
-                    Bundle bundle = new Bundle();
-                    // Setup dialogTitle
-                    dialogCaldroidFragment.setArguments(bundle);
-                }
-
-                dialogCaldroidFragment.show(getSupportFragmentManager(),
-                        dialogTag);
-            }
-        });
     }
 
     /**
@@ -249,5 +145,10 @@ public class CaldroidActivity extends FragmentActivity {
             dialogCaldroidFragment.saveStatesToKey(outState,
                     "DIALOG_CALDROID_SAVED_STATE");
         }
+    }
+
+    public void createEvent(View v){
+        Intent create = new Intent(this, Event.class);
+        startActivity(create);
     }
 }

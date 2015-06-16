@@ -49,7 +49,6 @@
             android:label="Agenda" >
         </activity>
         <activity
-<<<<<<< HEAD
             android:name=".WeekViewer"
             android:label="Week" >
         </activity>
@@ -61,11 +60,9 @@
         android:name=".Event"
         android:label="Event" >
     </activity>
-=======
+        <activity
             android:name=".AddGroup"
             android:label="@string/title_activity_add_group" >
         </activity>
->>>>>>> origin/master
     </application>
-
 </manifest>

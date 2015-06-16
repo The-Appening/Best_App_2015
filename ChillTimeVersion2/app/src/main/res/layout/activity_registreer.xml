@@ -30,7 +30,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textCapSentences|textPersonName"
         android:ems="10"
         android:id="@+id/fName"
         android:layout_below="@+id/textViewfname"
@@ -49,7 +49,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textCapSentences|textPersonName"
         android:ems="10"
         android:id="@+id/sName"
         android:layout_below="@+id/textViewsname"
@@ -142,7 +142,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textCapSentences|textPersonName"
         android:ems="10"
         android:id="@+id/insertion"
         android:layout_below="@+id/textviewinsertion"
