@@ -65,7 +65,7 @@
         android:width="120dp"
         android:layout_alignBottom="@+id/EndYear"
         android:layout_alignStart="@+id/EndMonth"
-        android:onClick="create"/>
+        android:onClick="goBack"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -161,6 +161,17 @@
         android:layout_below="@+id/StartYear"
         android:layout_centerHorizontal="true"
         android:id="@+id/space"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/ID"
+        android:width="120dp"
+        android:layout_above="@+id/EndHour"
+        android:layout_toEndOf="@+id/space"
+        android:hint="ID"/>
 
 </RelativeLayout>
 </ScrollView>

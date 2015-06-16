@@ -108,14 +108,8 @@ public class CaldroidCustomAdapter extends CaldroidGridAdapter {
         // Set custom color if required
         setCustomResources(dateTime, cellView, tv1);
 
-        if (events.containsKey(dateTime)) {
-            Event event = events.get(dateTime);
-            // do whatever you want with cellView
-        }
-
         return cellView;
     }
 
-    protected HashMap<DateTime, Event> events = new HashMap<DateTime, Event>();
 
 }

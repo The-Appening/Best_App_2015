@@ -28,6 +28,7 @@ dependencies {
     compile 'com.roomorama:caldroid:2.0.0'
     compile 'com.darwinsys:hirondelle-date4j:1.5.1'
     compile 'com.android.support:support-v4:22.0.0'
+    compile 'com.github.alamkanak:android-week-view:1.2.3'
 }
 
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,31 +19,12 @@ import java.util.Date;
 
 @SuppressLint("SimpleDateFormat")
 public class CaldroidActivity extends FragmentActivity {
-
     private boolean undo = false;
     private CaldroidFragment caldroidFragment;
     private CaldroidFragment dialogCaldroidFragment;
 
     private void setCustomResourceForDates() {
         Calendar cal = Calendar.getInstance();
-
-        // Min date is last 7 days
-        cal.add(Calendar.DATE, -7);
-        Date blueDate = cal.getTime();
-
-        // Max date is next 7 days
-        cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 7);
-        Date greenDate = cal.getTime();
-
-        if (caldroidFragment != null) {
-            caldroidFragment.setBackgroundResourceForDate(R.color.blue,
-                    blueDate);
-            caldroidFragment.setBackgroundResourceForDate(R.color.green,
-                    greenDate);
-            caldroidFragment.setTextColorForDate(R.color.white, blueDate);
-            caldroidFragment.setTextColorForDate(R.color.white, greenDate);
-        }
     }
 
     @Override
@@ -77,7 +57,7 @@ public class CaldroidActivity extends FragmentActivity {
             args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
             args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
             args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
-            args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
+            args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, false);
 
             // Uncomment this to customize startDayOfWeek
             // args.putInt(CaldroidFragment.START_DAY_OF_WEEK,
@@ -87,7 +67,7 @@ public class CaldroidActivity extends FragmentActivity {
             // args.putBoolean(CaldroidFragment.SQUARE_TEXT_VIEW_CELL, false);
 
             // Uncomment this line to use dark theme
-            args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefault);
+            //args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
 
             caldroidFragment.setArguments(args);
         }
@@ -142,7 +122,7 @@ public class CaldroidActivity extends FragmentActivity {
         final Button customizeButton = (Button) findViewById(R.id.customize_button);
 
         // Customize the calendar
-        customizeButton.setOnClickListener(new OnClickListener() {
+        customizeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -196,12 +176,12 @@ public class CaldroidActivity extends FragmentActivity {
                 }
 
                 // Customize
-                caldroidFragment.setMinDate(minDate);
-                caldroidFragment.setMaxDate(maxDate);
-                caldroidFragment.setDisableDates(disabledDates);
-                caldroidFragment.setSelectedDates(fromDate, toDate);
+                //caldroidFragment.setMinDate(minDate);
+                //caldroidFragment.setMaxDate(maxDate);
+                //caldroidFragment.setDisableDates(disabledDates);
+               //caldroidFragment.setSelectedDates(fromDate, toDate);
                 caldroidFragment.setShowNavigationArrows(false);
-                caldroidFragment.setEnableSwipe(false);
+                caldroidFragment.setEnableSwipe(true);
 
                 caldroidFragment.refreshView();
 
@@ -210,15 +190,9 @@ public class CaldroidActivity extends FragmentActivity {
                 // cal.add(Calendar.MONTH, 12);
                 // caldroidFragment.moveToDate(cal.getTime());
 
-                String text = "Today: " + formatter.format(new Date()) + "\n";
-                text += "Min Date: " + formatter.format(minDate) + "\n";
-                text += "Max Date: " + formatter.format(maxDate) + "\n";
-                text += "Select From Date: " + formatter.format(fromDate)
-                        + "\n";
-                text += "Select To Date: " + formatter.format(toDate) + "\n";
-                for (Date date : disabledDates) {
-                    text += "Disabled Date: " + formatter.format(date) + "\n";
-                }
+                String text = "Titel: Project" + "\n";
+                text += "Begin: 16-06-2015 11:00" + "\n";
+                text += "Eind: 16-06-2015 15:00" + "\n";
 
                 textView.setText(text);
             }
@@ -227,7 +201,7 @@ public class CaldroidActivity extends FragmentActivity {
         Button showDialogButton = (Button) findViewById(R.id.show_dialog_button);
 
         final Bundle state = savedInstanceState;
-        showDialogButton.setOnClickListener(new OnClickListener() {
+        showDialogButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -276,5 +250,4 @@ public class CaldroidActivity extends FragmentActivity {
                     "DIALOG_CALDROID_SAVED_STATE");
         }
     }
-
 }
