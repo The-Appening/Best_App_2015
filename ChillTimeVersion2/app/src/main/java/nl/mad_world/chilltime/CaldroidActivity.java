@@ -5,14 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -21,17 +26,18 @@ public class CaldroidActivity extends FragmentActivity {
     private boolean undo = false;
     private CaldroidFragment caldroidFragment;
     private CaldroidFragment dialogCaldroidFragment;
+    ArrayList<String> getAll = new ArrayList<>();
 
-    private void setCustomResourceForDates() {
+    /*private void setCustomResourceForDates() {
         Calendar cal = Calendar.getInstance();
-    }
+    }*/
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_caldroid);
 
-        final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+        final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 
         // Setup caldroid fragment
         // **** If you want normal CaldroidFragment, use below line ****
@@ -71,7 +77,7 @@ public class CaldroidActivity extends FragmentActivity {
             caldroidFragment.setArguments(args);
         }
 
-        setCustomResourceForDates();
+        //setCustomResourceForDates();
 
         // Attach to the activity
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
@@ -83,32 +89,18 @@ public class CaldroidActivity extends FragmentActivity {
 
             @Override
             public void onSelectDate(Date date, View view) {
-                Toast.makeText(getApplicationContext(), formatter.format(date),
-                        Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
             public void onChangeMonth(int month, int year) {
-                String text = "month: " + month + " year: " + year;
-                Toast.makeText(getApplicationContext(), text,
-                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onLongClickDate(Date date, View view) {
-                Toast.makeText(getApplicationContext(),
-                        "Long click " + formatter.format(date),
-                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCaldroidViewCreated() {
-                if (caldroidFragment.getLeftArrowButton() != null) {
-                    Toast.makeText(getApplicationContext(),
-                            "Caldroid view is created", Toast.LENGTH_SHORT)
-                            .show();
-                }
             }
 
         };
@@ -116,17 +108,9 @@ public class CaldroidActivity extends FragmentActivity {
         // Setup Caldroid
         caldroidFragment.setCaldroidListener(listener);
 
-        final TextView textView = (TextView) findViewById(R.id.textview);
+        Bundle state = savedInstanceState;
 
-
-        String text = "Titel: Project" + "\n";
-        text += "Begin: 16-06-2015 11:00" + "\n";
-        text += "Eind: 16-06-2015 15:00" + "\n";
-
-        textView.setText(text);
-
-        final Bundle state = savedInstanceState;
-
+        getData();
     }
 
     /**
@@ -147,8 +131,42 @@ public class CaldroidActivity extends FragmentActivity {
         }
     }
 
-    public void createEvent(View v){
+    public void createEvent(View v) {
         Intent create = new Intent(this, Event.class);
         startActivity(create);
     }
+
+    public void getData() {
+        String[] id = new String[2];
+        id[0] = "7Z5rPIO4Aj";
+        id[1] = "DqQ6bfYQgO";
+
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+
+            @Override
+            public void done(ParseObject arg0, ParseException arg1) {
+                // TODO Auto-generated method stub
+
+                if (arg1 == null) {
+
+                    TextView textView = (TextView) findViewById(R.id.textview);
+                    int id = arg0.getInt("ID");
+                    String title = arg0.getString("Title");
+                    Date start = arg0.getDate("StartDate");
+                    Date end = arg0.getDate("EndDate");
+
+                    textView.setText("Titel: " + title + "\n" + "Begint op: " +  start + "\n" + "Eindigt op: " + end + "\n");
+
+                } else {
+                    Log.d("score", "Error: " + arg1.getMessage());
+                }
+            }
+        });
+
+    }
 }
+
+
+
