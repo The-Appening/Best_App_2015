@@ -48,6 +48,10 @@
             android:name=".CaldroidActivity"
             android:label="Agenda" >
         </activity>
+        <activity
+            android:name=".AddGroup"
+            android:label="@string/title_activity_add_group" >
+        </activity>
     </application>
 
 </manifest>
