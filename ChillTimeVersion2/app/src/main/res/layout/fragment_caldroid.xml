@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical" >
+              android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/calendar1"
@@ -26,9 +26,19 @@
             android:onClick="createEvent"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="false"
+                android:layout_gravity="center_horizontal">
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_height="534dp"
+        android:layout_width="match_parent">
+    </ListView>
+
+    </ScrollView>
+
 
 </LinearLayout>

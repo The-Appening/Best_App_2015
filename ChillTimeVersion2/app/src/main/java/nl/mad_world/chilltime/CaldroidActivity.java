@@ -7,9 +7,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import com.parse.GetCallback;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -17,14 +18,23 @@ import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @SuppressLint("SimpleDateFormat")
 public class CaldroidActivity extends FragmentActivity {
     private boolean undo = false;
     private CaldroidFragment caldroidFragment;
     private CaldroidFragment dialogCaldroidFragment;
+    private String title;
+    private Date begin;
+    private Date end;
+    private ListView listView;
+    private ArrayList events = new ArrayList();
+
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -65,6 +75,20 @@ public class CaldroidActivity extends FragmentActivity {
             //args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
 
             caldroidFragment.setArguments(args);
+
+            // Define a new Adapter
+            // First parameter - Context
+            // Second parameter - Layout for the row
+            // Third parameter - ID of the TextView to which the data is written
+            // Forth - the Array of data
+            listView = (ListView) findViewById(R.id.list);
+
+            ArrayAdapter adapter = new ArrayAdapter(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, events);
+
+
+            // Assign adapter to ListView
+            listView.setAdapter(adapter);
         }
 
         //setCustomResourceForDates();
@@ -129,30 +153,36 @@ public class CaldroidActivity extends FragmentActivity {
     public void getData() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
         query.whereExists("ID");
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> List, ParseException e) {
+                if (e == null) {
+                    Log.d("Afspraak", "Opgehaald " + List.size() + " afspraken");
 
-            @Override
-            public void done(ParseObject arg0, ParseException arg1) {
-                // TODO Auto-generated method stub
+                    for (int i = 0; i < List.size(); i++) {
+                        title = List.get(i).getString("Title");
+                        begin = List.get(i).getDate("StartDate");
+                        end = List.get(i).getDate("EndDate");
 
-                if (arg1 == null) {
-
-                    TextView textView = (TextView) findViewById(R.id.textview);
-                    int id = arg0.getInt("ID");
-                    String title = arg0.getString("Title");
-                    Date start = arg0.getDate("StartDate");
-                    Date end = arg0.getDate("EndDate");
-
-                    textView.setText("Afspraak: " + title + "\n" + "Begint op: " + start + "\n" + "Eindigt op: " + end + "\n");
+                        events.add("Titel: " + title + "\n" +  "Begin: " + begin + "\n" + "Eind: " + end);
+                        System.out.println(title + begin + end);
+                    }
 
                 } else {
-                    Log.d("Afspraak", "Error: " + arg1.getMessage());
+                    Log.d("Afspraken", "Error: " + e.getMessage());
                 }
-            }
-        });
 
-    }
+                //TextView textview = (TextView) findViewById(R.id.textview);
+                //textview.setText("Titel: " + title + "\n" + "Begint op: " + begin + "\n" + "Eindigt op: " + end + "\n");
+
+            }
+
+
+        }); }
+
+
+
 }
+
 
 
 

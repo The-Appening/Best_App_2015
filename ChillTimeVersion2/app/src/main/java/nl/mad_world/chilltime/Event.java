@@ -26,10 +26,10 @@ import android.widget.EditText;
     }
 
     public Event(int id, String title, int startDate, int endDate) {
-            this.id = id;
-            this.title = title;
-            this.startDate =startDate;
-            this.endDate = endDate;
+            Event.id = id;
+            Event.title = title;
+            Event.startDate =startDate;
+            Event.endDate = endDate;
         }
 
     public void setTitle(String Title) {
@@ -62,7 +62,7 @@ import android.widget.EditText;
 
         startDate = startYear + startMonth + startDay + startHour + startMin;
 
-            this.startDate = startDate;
+            Event.startDate = startDate;
 }
 
 public void setEndDate(int endDate) {
@@ -84,7 +84,7 @@ public void setEndDate(int endDate) {
         endDate = endYear + endMonth + endDay + endHour + endMin;
 
 
-        this.endDate = endDate;
+        Event.endDate = endDate;
     }
 
 

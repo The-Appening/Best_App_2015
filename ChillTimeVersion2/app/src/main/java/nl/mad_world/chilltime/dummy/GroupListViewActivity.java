@@ -25,7 +25,7 @@ public class GroupListViewActivity extends ActionBarActivity {
             ft.replace(android.R.id.content, fragment);
             ft.commit();
         }
-        ((ActionBarActivity)this).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
 
