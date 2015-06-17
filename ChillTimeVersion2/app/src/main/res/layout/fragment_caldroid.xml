@@ -26,19 +26,26 @@
             android:onClick="createEvent"/>
     </LinearLayout>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="false"
-                android:layout_gravity="center_horizontal">
-
     <ListView
         android:id="@+id/list"
-        android:layout_height="534dp"
-        android:layout_width="match_parent">
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:drawSelectorOnTop="true"
+        android:dividerHeight="3dp"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
+        android:footerDividersEnabled="true"
+        android:headerDividersEnabled="true"
+        android:smoothScrollbar="true"
+        android:scrollbars="vertical"
+        android:stackFromBottom="false"
+        android:transcriptMode="alwaysScroll"
+        android:textFilterEnabled="true"
+        android:layoutMode="clipBounds"
+        android:fastScrollEnabled="true"
+        android:choiceMode="singleChoice"
+        android:textAlignment="center">
     </ListView>
-
-    </ScrollView>
 
 
 </LinearLayout>

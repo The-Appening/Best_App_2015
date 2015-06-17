@@ -83,7 +83,6 @@ public void setEndDate(int endDate) {
 
         endDate = endYear + endMonth + endDay + endHour + endMin;
 
-
         Event.endDate = endDate;
     }
 
