@@ -50,14 +50,6 @@
             android:label="Agenda" >
         </activity>
         <activity
-            android:name=".WeekViewer"
-            android:label="Week" >
-        </activity>
-        <activity
-            android:name=".maakEvent"
-            android:label="Maak Afspraak" >
-        </activity>
-        <activity
         android:name=".Event"
         android:label="Event" >
     </activity>

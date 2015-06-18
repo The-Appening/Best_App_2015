@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 @SuppressLint("SimpleDateFormat")
 public class CaldroidActivity extends FragmentActivity {
@@ -33,7 +34,7 @@ public class CaldroidActivity extends FragmentActivity {
     private String title;
     private Date begin;
     private Date end;
-    private ListView listView;
+    public static ListView listView;
     private ArrayList events = new ArrayList();
 
 
@@ -43,7 +44,7 @@ public class CaldroidActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_caldroid);
 
-        final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+        final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
         // Setup caldroid fragment
         // **** If you want normal CaldroidFragment, use below line ****
@@ -162,7 +163,8 @@ public class CaldroidActivity extends FragmentActivity {
                         begin = List.get(i).getDate("StartDate");
                         end = List.get(i).getDate("EndDate");
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MMMM yyyy hh:mm", Locale.getDefault());
+                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MMMM yyyy HH:mm", Locale.getDefault());
+                        sdf.setTimeZone(TimeZone.getTimeZone("CEST"));
 
                         events.add("Titel: " + title + "\n" + "Start: " + sdf.format(begin) + "\n" + "Eind: " + sdf.format(end));
                         System.out.println(title + begin + end);
@@ -173,7 +175,7 @@ public class CaldroidActivity extends FragmentActivity {
                 }
             } catch(Exception t){
                     Toast.makeText(getApplicationContext(),
-                            "Geen afspraken!", Toast.LENGTH_LONG).show();
+                            "Kan geen afspraken ophalen!", Toast.LENGTH_LONG).show();
                 }
 
 

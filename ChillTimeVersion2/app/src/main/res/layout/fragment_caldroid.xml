@@ -44,7 +44,9 @@
         android:layoutMode="clipBounds"
         android:fastScrollEnabled="true"
         android:choiceMode="singleChoice"
-        android:textAlignment="center">
+        android:textAlignment="center"
+        android:longClickable="true"
+        android:onClick="delEvent">
     </ListView>
 
 
