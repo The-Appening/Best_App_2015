@@ -2,10 +2,12 @@ package nl.mad_world.chilltime;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.Parse;
@@ -24,7 +26,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    public void Login(View view){
+    public void Login(View view) {
         EditText pWord = (EditText) findViewById(R.id.password);
         String pWordString = pWord.getText().toString();
 
@@ -33,18 +35,23 @@ public class MainActivity extends ActionBarActivity {
 
         final Intent intent = new Intent(this, Group.class);
 
-        ParseUser.logInInBackground(uNameString, pWordString, new LogInCallback() {
-            public void done(ParseUser user, ParseException e) {
-                if (user != null) {
-                    startActivity(intent);
-                } else {
-                    showAlert("De door u ingevulde gebruikersnaam en/of wachtwoord zijn incorrect.");
+        if (isInternetOn()) {
+            ParseUser.logInInBackground(uNameString, pWordString, new LogInCallback() {
+                public void done(ParseUser user, ParseException e) {
+                    if (user != null) {
+                        startActivity(intent);
+                    } else {
+                        showAlert("De door u ingevulde gebruikersnaam en/of wachtwoord zijn incorrect.");
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            System.out.println("GEEN INTERNET BESCHIKBAAR");
+            showAlert("U heeft mogelijk geen internetverbinding of uw internetverbinding is te zwak.");
+        }
     }
 
-    public void showAlert(String message){
+    public void showAlert(String message) {
         new AlertDialog.Builder(this)
                 .setMessage(message)
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -52,10 +59,34 @@ public class MainActivity extends ActionBarActivity {
                 .show();
     }
 
-    public void Registreer(View view){
+    public void Registreer(View view) {
         Intent intent = new Intent(this, Registreer.class);
 
         startActivity(intent);
+    }
+
+    public final boolean isInternetOn() {
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec =
+                (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+
+        // Check for network connections
+        if (connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
+
+            // if connected with internet
+
+            return true;
+
+        } else if (
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
+
+            return false;
+        }
+        return false;
     }
 
 }
