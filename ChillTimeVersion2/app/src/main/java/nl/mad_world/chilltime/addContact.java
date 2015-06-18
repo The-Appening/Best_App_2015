@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -30,7 +31,7 @@ public class addContact extends ActionBarActivity {
         setContentView(R.layout.activity_add_contact);
     }
 
-    public void SearchContact(View view){
+    public void SearchContact(View view) {
         getContactData();
         monthsListView = (ListView) findViewById(R.id.AddContactList);
 
@@ -42,7 +43,7 @@ public class addContact extends ActionBarActivity {
         monthsListView.setAdapter(arrayAdapter);
     }
 
-    public void getContactData(){
+    public void getContactData() {
         ContactAdd.clear();
         EditText sNameET = (EditText) findViewById(R.id.ContactName);
         String ContactNames = sNameET.getText().toString();
@@ -57,7 +58,6 @@ public class addContact extends ActionBarActivity {
                 } else {
                     ContactAdd.add("Er zijn geen gebruikers gevonden");
                 }
-
             }
         });
     }
@@ -75,17 +75,24 @@ public class addContact extends ActionBarActivity {
 
         System.out.println(info.id);
 
-        if(item.getTitle()=="Toevoegen"){
+        if (item.getTitle() == "Toevoegen") {
             //TODO maken functie die contact verwijdert.
             // voorbeeldfunctienaam(item.getItemId());
             System.out.println(item.getSubMenu());
-        }
-        else {
+        } else {
             return false;
         }
         return true;
     }
 
+    public void editContactList(String toAddContact) {
+        ParseUser currentUserObject = ParseUser.getCurrentUser();
+        String currentUser = currentUserObject.getUsername();
+        ParseObject contacts = new ParseObject("ContactList");
+        contacts.put("UserOne", currentUser);
+        contacts.put("UserTwo", toAddContact);
+        contacts.saveInBackground();
+    }
 }
 
 
