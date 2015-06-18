@@ -71,6 +71,10 @@ public class addContact extends ActionBarActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        System.out.println(info.id);
+
         if(item.getTitle()=="Toevoegen"){
             //TODO maken functie die contact verwijdert.
             // voorbeeldfunctienaam(item.getItemId());
