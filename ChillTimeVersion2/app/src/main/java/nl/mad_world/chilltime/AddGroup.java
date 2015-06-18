@@ -19,7 +19,8 @@ import java.util.List;
 
 public class AddGroup extends ActionBarActivity {
 
-    boolean Success = false;
+    boolean Success;
+    boolean isntWaiting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class AddGroup extends ActionBarActivity {
 
     public void SaveGroup(View view) {
         ParseObject group = new ParseObject("Groups");
+        ParseObject groupMembers = new ParseObject("Group_members");
         ParseUser currentUser = ParseUser.getCurrentUser();
 
         String username = currentUser.getUsername();
@@ -36,43 +38,46 @@ public class AddGroup extends ActionBarActivity {
         EditText gNameET = (EditText) findViewById(R.id.groupName);
         String groupName = gNameET.getText().toString();
 
-        ParseQuery check = new ParseQuery("Groups");
+        ParseQuery<ParseObject> check = new ParseQuery("Groups");
 
         check.whereEqualTo("Name", groupName);
-        check.findInBackground(new FindCallback() {
-            @Override
-            public void done(List list, ParseException e) {
+        check.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
-                    if (list.size() > 1) {
-                        Success = false;
-                    }
-                    if (list.size() == 0) {
+                    if (objects.size()==0) {
                         Success = true;
+                        isntWaiting = true;
                     }
+                    else{
+                        Success = false;
+                        isntWaiting = true;
+                    }
+                } else {
+                    Success = false;
+                    isntWaiting = true;
                 }
-            }
-
-            @Override
-            public void done(Object o, Throwable throwable) {
-
             }
         });
 
-        if(Success == true) {
-            group.put("Name", groupName);
-            group.put("Creator", username);
-            group.saveInBackground();
+        if(isntWaiting) {
+            if (Success == true) {
+                group.put("Name", groupName);
+                group.put("Creator", username);
+                group.saveInBackground();
 
-            Intent intent = new Intent(this, Group.class);
+                groupMembers.put("Username", username);
+                groupMembers.put("GroupName", groupName);
+                groupMembers.saveInBackground();
 
-            startActivity(intent);
-        }
-        else{
-            new AlertDialog.Builder(this)
-                    .setMessage("De door u ingevulde groepsnaam is al in gebruik.")
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setCancelable(true)
-                    .show();
+                Intent intent = new Intent(this, Group.class);
+                startActivity(intent);
+            } else {
+                new AlertDialog.Builder(this)
+                        .setMessage("De door u ingevulde groepsnaam is al in gebruik.")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setCancelable(true)
+                        .show();
+            }
         }
     }
 }
