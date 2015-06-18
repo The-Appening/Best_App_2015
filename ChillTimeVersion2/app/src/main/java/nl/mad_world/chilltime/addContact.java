@@ -78,7 +78,6 @@ public class addContact extends ActionBarActivity {
         if(item.getTitle()=="Toevoegen"){
             //TODO maken functie die contact verwijdert.
             // voorbeeldfunctienaam(item.getItemId());
-            System.out.println(item.getSubMenu());
         }
         else {
             return false;

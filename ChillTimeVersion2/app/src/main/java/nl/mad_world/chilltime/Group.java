@@ -15,10 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -181,8 +190,30 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
         public GroupFragment() {
         }
+        private static ArrayList<String> Groups = new ArrayList<String>();
 
-        private static String[] MOBILE_MODELS = {"Meerpaal","Comenius","HogeSchool Rotterdam","Family Utility"};
+        public void getContactData(){
+            //Groups.clear();
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
+            ParseUser currentUser = ParseUser.getCurrentUser();
+
+            String username = currentUser.getUsername();
+            query.whereEqualTo("Creator", username);
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> objects, ParseException e) {
+                    if (e == null) {
+                        for (int i = 0; i < objects.size(); i++) {
+                            Groups.add(objects.get(i).getString("Name"));
+                        }
+                    } else {
+                        Groups.add("Er zijn geen gebruikers gevonden");
+                    }
+
+                }
+            });
+        }
+
+
 
         public static GroupFragment newInstance() {
             Bundle args = new Bundle();
@@ -196,9 +227,9 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_group, container, false);
-
+            getContactData();
             ListView listView = (ListView) rootView.findViewById(R.id.GlistView);
-            listView.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,MOBILE_MODELS));
+            listView.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,Groups));
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
