@@ -293,13 +293,16 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
          * The fragment argument representing the section number for this
          * fragment.
          */
+        ArrayList<String> contacts = new ArrayList<>();;
+
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
             ListView listView = (ListView) rootView.findViewById(R.id.ClistView);
-            listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Contactlist));
+            contactList();
+            listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, contacts));
             registerForContextMenu(listView);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -314,6 +317,39 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             });
 
             return rootView;
+        }
+
+        public void contactList(){
+            ParseUser cUser = ParseUser.getCurrentUser();
+            String cUserName = cUser.getUsername();
+            ParseQuery<ParseObject> query = new ParseQuery("ContactList");
+            query.whereEqualTo("UserOne", cUserName);
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    if (e == null) {
+                        for (int i = 0; i < objects.size(); i++) {
+                            contacts.add(objects.get(i).getString("UserTwo"));
+                        }
+                    } else {
+                        contacts.add("Geen contacten gevonden.");
+                    }
+                }
+            });
+            ParseQuery<ParseObject> query2 = new ParseQuery("ContactList");
+            query2.whereEqualTo("UserTwo", cUserName);
+            query2.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects2, ParseException e) {
+                    if (e == null) {
+                        for (int i = 0; i < objects2.size(); i++) {
+                            contacts.add(objects2.get(i).getString("UserOne"));
+                        }
+                    } else {
+                        contacts.add("Geen contacten gevonden.");
+                    }
+                }
+            });
         }
 
         @Override

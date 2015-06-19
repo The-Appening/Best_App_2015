@@ -25,6 +25,8 @@ public class addContact extends ActionBarActivity {
     ArrayList<String> ContactAdd = new ArrayList<>();
     private ListView monthsListView;
     private ArrayAdapter arrayAdapter;
+    ArrayList<List> checkArray = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,6 @@ public class addContact extends ActionBarActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         if (item.getTitle() == "Toevoegen") {
-            //TODO maken functie die contact verwijdert.
             editContactList(ContactAdd.get((int) info.id));
         } else {
             return false;
@@ -88,9 +89,45 @@ public class addContact extends ActionBarActivity {
         return true;
     }
 
-    public void editContactList(String toAddContact) {
+    public void editContactList(final String toAddContact) {
+        ParseQuery<ParseObject> check = new ParseQuery("ContactList");
+        ParseQuery<ParseObject> check2 = new ParseQuery("ContactList");
+
         ParseUser currentUserObject = ParseUser.getCurrentUser();
-        String currentUser = currentUserObject.getUsername();
+        final String currentUser = currentUserObject.getUsername();
+
+        check.whereEqualTo("UserOne", currentUser);
+        check.whereEqualTo("UserTwo", toAddContact);
+        check.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    checkArray.add(objects);
+                    if(checkArray.size()==2) {
+                        if (checkArray.get(0).size() == 0 && checkArray.get(1).size() == 0) {
+                            addContact(toAddContact, currentUser);
+                        }
+                    }
+                }
+            }
+        });
+
+        check2.whereEqualTo("UserTwo", currentUser);
+        check2.whereEqualTo("UserOne", toAddContact);
+        check2.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> objects2, ParseException e) {
+                if (e == null) {
+                    checkArray.add(objects2);
+                    if(checkArray.size()==2) {
+                        if (checkArray.get(0).size() == 0 && checkArray.get(1).size() == 0) {
+                            addContact(toAddContact, currentUser);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public void addContact(String toAddContact, String currentUser){
         ParseObject contacts = new ParseObject("ContactList");
         contacts.put("UserOne", currentUser);
         contacts.put("UserTwo", toAddContact);
