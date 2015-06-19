@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -29,18 +30,21 @@ public class addContact extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
+        Parse.initialize(this, "wxutoacSUnKAIN5NxgCm7QvHqmrw2VoVlm7wkMrp", "5cfOao5AJYe6d5H1LpuIFwK4mXev14jbZrNZADZB");
     }
 
     public void SearchContact(View view) {
-        getContactData();
+
         monthsListView = (ListView) findViewById(R.id.AddContactList);
 
         // this-The current activity context.
         // Second param is the resource Id for list layout row item
         // Third param is input array
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ContactAdd);
+        getContactData();
         registerForContextMenu(monthsListView);
         monthsListView.setAdapter(arrayAdapter);
+
     }
 
     public void getContactData() {
@@ -54,9 +58,11 @@ public class addContact extends ActionBarActivity {
                 if (e == null) {
                     for (int i = 0; i < objects.size(); i++) {
                         ContactAdd.add(objects.get(i).getString("username"));
+                        arrayAdapter.notifyDataSetChanged();
                     }
                 } else {
                     ContactAdd.add("Er zijn geen gebruikers gevonden");
+                    arrayAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -73,12 +79,9 @@ public class addContact extends ActionBarActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        System.out.println(info.id);
-
         if (item.getTitle() == "Toevoegen") {
             //TODO maken functie die contact verwijdert.
-            // voorbeeldfunctienaam(item.getItemId());
-            System.out.println(item.getSubMenu());
+            editContactList(ContactAdd.get((int) info.id));
         } else {
             return false;
         }
