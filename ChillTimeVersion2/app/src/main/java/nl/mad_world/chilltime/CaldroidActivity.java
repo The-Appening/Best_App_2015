@@ -32,12 +32,55 @@ public class CaldroidActivity extends FragmentActivity {
     private CaldroidFragment caldroidFragment;
     private CaldroidFragment dialogCaldroidFragment;
     private String title;
-    private Date begin;
-    private Date end;
+    private String eid;
+    private String EID;
+    private static Date begin, end;
     public static ListView listView;
     private ArrayList events = new ArrayList();
+    private List<ParseObject> List;
+    private String[] output;
+    private ArrayList<String> eids = new ArrayList<String>();
+
+    /// Deze method haalt alle events op van de DB en zet ze in de ArrayList
+    public void getData() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
+        query.whereExists("eID");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> List, ParseException e) {
+                try {
+                    if (e == null) {
+
+                        Log.d("Afspraak", "Opgehaald " + List.size() + " afspraken");
+
+                        for (int i = 0; i < List.size(); i++) {
+                            title = List.get(i).getString("Title");
+                            begin = List.get(i).getDate("StartDate");
+                            end = List.get(i).getDate("EndDate");
+                            eid = List.get(i).getString("eID");
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MMMM yyyy HH:mm", Locale.getDefault());
+                            sdf.setTimeZone(TimeZone.getTimeZone("CEST"));
+
+                            events.add("Titel: " + title + "\n" + "Van: " + sdf.format(begin) + "\n" + "Tot: " + sdf.format(end));
+                            System.out.println(title + begin + end);
+                        }
 
 
+                    } else {
+                        Log.d("Afspraken", "Error: " + e.getMessage());
+                    }
+                } catch (Exception t) {
+                    Toast.makeText(getApplicationContext(),
+                            "Kan geen afspraken ophalen!", Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+
+
+        });
+
+    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -62,12 +105,11 @@ public class CaldroidActivity extends FragmentActivity {
         else {
             Bundle args = new Bundle();
             Calendar cal = Calendar.getInstance();
-            Date date = new Date();
             args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
             args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
             args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
+            args.putBoolean(CaldroidFragment.ENABLE_CLICK_ON_DISABLED_DATES, true);
             args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, false);
-
             // Uncomment this line to use dark theme
             //args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
 
@@ -95,6 +137,7 @@ public class CaldroidActivity extends FragmentActivity {
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
 
+
         // Setup listener
         final CaldroidListener listener = new CaldroidListener() {
 
@@ -112,6 +155,7 @@ public class CaldroidActivity extends FragmentActivity {
 
             @Override
             public void onCaldroidViewCreated() {
+
             }
 
         };
@@ -119,9 +163,9 @@ public class CaldroidActivity extends FragmentActivity {
         // Setup Caldroid
         caldroidFragment.setCaldroidListener(listener);
 
+
         Bundle state = savedInstanceState;
 
-        getData();
     }
 
     /**
@@ -148,44 +192,7 @@ public class CaldroidActivity extends FragmentActivity {
         startActivity(create);
     }
 
-    /// Deze method haalt alle events op van de DB en zet ze in de ArrayList
-    public void getData() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
-        query.whereExists("ID");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> List, ParseException e) {
-                try{
-                if (e == null) {
 
-                    Log.d("Afspraak", "Opgehaald " + List.size() + " afspraken");
-
-                    for (int i = 0; i < List.size(); i++) {
-                        title = List.get(i).getString("Title");
-                        begin = List.get(i).getDate("StartDate");
-                        end = List.get(i).getDate("EndDate");
-
-                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MMMM yyyy HH:mm", Locale.getDefault());
-                        sdf.setTimeZone(TimeZone.getTimeZone("CEST"));
-
-                        events.add("Titel: " + title + "\n" + "Van: " + sdf.format(begin) + "\n" + "Tot: " + sdf.format(end));
-                        System.out.println(title + begin + end);
-                    }
-
-                } else {
-                    Log.d("Afspraken", "Error: " + e.getMessage());
-                }
-            } catch(Exception t){
-                    Toast.makeText(getApplicationContext(),
-                            "Kan geen afspraken ophalen!", Toast.LENGTH_LONG).show();
-                }
-
-
-        }
-
-
-        });
-
-    }
 }
 
 

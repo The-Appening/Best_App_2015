@@ -21,10 +21,14 @@ import java.util.TimeZone;
     public class Event extends Activity {
 
     public String title;
-    public int id = 0;
     public Date start;
     public Date end;
+    public String eID;
     public ParseObject ev;
+    public String yearstart;
+    public String monthstart;
+    public String daystart;
+    public DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 
     @Override
@@ -35,9 +39,9 @@ import java.util.TimeZone;
 
     public Event(){}
 
-    public Event(String title, int id, Date start, Date end) {
+    public Event(String title, String eID, Date start, Date end) {
         this.title = title;
-        this.id = id;
+        this.eID = eID;
         this.start = start;
         this.end = end;
     }
@@ -48,14 +52,12 @@ import java.util.TimeZone;
         this.title = title;
     }
 
-    public void setId(int id) {
-        for(int i=0 ; i < 100; i++){
-            id = 0;
-            id++;
-        }
+    public void setEID(String eID) {
+        eID = yearstart + "-" + monthstart + "-" + daystart;
 
-        this.id = id;
+        this.eID = eID;
     }
+
 
     public void setStart(Date start) throws java.text.ParseException {
         this.start = start;
@@ -77,10 +79,10 @@ import java.util.TimeZone;
         return title;
     }
 
-    public int getId() {
-        id++;
-        return id;
+    public String getEID(){
+        return eID;
     }
+
 
     public Date getStart() throws java.text.ParseException {
         EditText startday = (EditText) findViewById(R.id.StartDay);
@@ -100,7 +102,7 @@ import java.util.TimeZone;
 
         String startseconds = "00";
 
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
         df.setTimeZone(TimeZone.getTimeZone("CEST"));
         Date start = df.parse(yearstart + "/" + monthstart + "/" + daystart + " " + hourstart + ":" + minstart + ":" + startseconds);
 
@@ -125,7 +127,6 @@ import java.util.TimeZone;
 
         String endseconds = "00";
 
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("CEST"));
         Date end = df.parse(yearend + "/" + monthend + "/" + dayend + " " + hourend + ":" + minend + ":" + endseconds);
 
@@ -139,10 +140,10 @@ import java.util.TimeZone;
     public void saveDate() throws ParseException, java.text.ParseException {
         try {
             ParseObject ev = new ParseObject("Event");
-            ev.put("ID", getId());
             ev.put("Title", getEventTitle());
             ev.put("StartDate", getStart());
             ev.put("EndDate", getEnd());
+            ev.put("eID", yearstart + "-" + monthstart + "-" + daystart);
             ev.saveInBackground();
 
             Toast.makeText(getApplicationContext(),
