@@ -62,6 +62,7 @@ public class CaldroidActivity extends FragmentActivity {
         else {
             Bundle args = new Bundle();
             Calendar cal = Calendar.getInstance();
+            Date date = new Date();
             args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
             args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
             args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
@@ -166,7 +167,7 @@ public class CaldroidActivity extends FragmentActivity {
                         SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MMMM yyyy HH:mm", Locale.getDefault());
                         sdf.setTimeZone(TimeZone.getTimeZone("CEST"));
 
-                        events.add("Titel: " + title + "\n" + "Start: " + sdf.format(begin) + "\n" + "Eind: " + sdf.format(end));
+                        events.add("Titel: " + title + "\n" + "Van: " + sdf.format(begin) + "\n" + "Tot: " + sdf.format(end));
                         System.out.println(title + begin + end);
                     }
 
