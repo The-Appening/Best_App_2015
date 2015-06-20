@@ -1,167 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:orientation="vertical"
+    <com.alamkanak.weekview.WeekView
+        android:id="@+id/weekView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:eventTextColor="@android:color/white"
+        app:textSize="12sp"
+        app:hourHeight="60dp"
+        app:headerColumnPadding="8dp"
+        app:headerColumnTextColor="#8f000000"
+        app:headerRowPadding="12dp"
+        app:columnGap="8dp"
+        app:noOfVisibleDays="1"
+        app:headerRowBackgroundColor="#ffefefef"
+        app:dayBackgroundColor="#05000000"
+        app:todayBackgroundColor="#1848adff"
+        app:headerColumnBackground="#ffffffff"/>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/StartMin"
-            android:hint="Minuten"
-            android:width="120dp"
-            android:layout_marginTop="94dp"
-            android:layout_below="@+id/eventName"
-            android:layout_alignStart="@+id/eventName"
-            android:singleLine="true"/>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/StartDay"
-            android:hint="Dag"
-            android:width="120dp"
-            android:layout_above="@+id/StartMonth"
-            android:layout_alignEnd="@+id/eventName"
-            android:layout_marginBottom="25dp"
-            android:singleLine="true"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/StartMonth"
-            android:width="120dp"
-            android:hint="Maand"
-            android:layout_alignTop="@+id/StartMin"
-            android:layout_alignStart="@+id/StartDay"
-            android:singleLine="true"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/eventName"
-            android:width="250dp"
-            android:hint="Titel"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:singleLine="true"
-            android:inputType="textCapSentences"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aanmaken"
-            android:id="@+id/create"
-            android:width="120dp"
-            android:layout_alignBottom="@+id/EndYear"
-            android:layout_alignStart="@+id/EndMonth"
-            android:onClick="goSave"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/StartHour"
-            android:width="120dp"
-            android:hint="Uur"
-            android:layout_alignTop="@+id/StartDay"
-            android:layout_alignStart="@+id/StartMin"
-            android:singleLine="true"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/StartYear"
-            android:hint="Jaar"
-            android:width="120dp"
-            android:layout_below="@+id/StartMin"
-            android:layout_alignStart="@+id/StartMin"
-            android:layout_marginTop="25dp"
-            android:singleLine="true"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/EndHour"
-            android:width="120dp"
-            android:hint="Uur"
-            android:layout_below="@+id/StartYear"
-            android:layout_alignStart="@+id/StartYear"
-            android:layout_marginTop="54dp"
-            android:singleLine="true"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/EndDay"
-            android:width="120dp"
-            android:hint="Dag"
-            android:layout_alignTop="@+id/EndHour"
-            android:layout_alignStart="@+id/StartMonth"
-            android:singleLine="true"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/EndMin"
-            android:hint="Minuten"
-            android:width="120dp"
-            android:layout_below="@+id/EndHour"
-            android:layout_alignStart="@+id/EndHour"
-            android:layout_marginTop="20dp"
-            android:singleLine="true"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/EndMonth"
-            android:width="120dp"
-            android:hint="Maand"
-            android:layout_alignTop="@+id/EndMin"
-            android:layout_alignStart="@+id/EndDay"
-            android:singleLine="true"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/EndYear"
-            android:hint="Jaar"
-            android:width="120dp"
-            android:layout_below="@+id/EndMin"
-            android:layout_alignStart="@+id/EndMin"
-            android:layout_marginTop="20dp"
-            android:singleLine="true"/>
-
-        <Space
-            android:layout_width="20px"
-            android:layout_height="20px"
-            android:layout_below="@+id/StartYear"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/space"/>
-
-    </RelativeLayout>
-</ScrollView>
+</RelativeLayout>

@@ -51,11 +51,15 @@
         </activity>
         <activity
         android:name=".Event"
-        android:label="Event" >
+        android:label="Afspraak Maken" >
     </activity>
         <activity
             android:name=".AddGroup"
             android:label="@string/title_activity_add_group" >
+        </activity>
+        <activity
+            android:name=".WeekViewer"
+            android:label="Kalender" >
         </activity>
     </application>
 </manifest>

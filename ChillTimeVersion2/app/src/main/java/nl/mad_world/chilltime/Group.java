@@ -9,16 +9,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -238,7 +237,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
                                         int position, long arg3) {
 
 
-                    Intent intent = new Intent(getActivity(), CaldroidActivity.class);
+                    Intent intent = new Intent(getActivity(), WeekViewer.class);
                     startActivity(intent);
 
 

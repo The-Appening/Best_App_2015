@@ -32,14 +32,10 @@ public class CaldroidActivity extends FragmentActivity {
     private CaldroidFragment caldroidFragment;
     private CaldroidFragment dialogCaldroidFragment;
     private String title;
-    private String eid;
-    private String EID;
     private static Date begin, end;
     public static ListView listView;
     private ArrayList events = new ArrayList();
     private List<ParseObject> List;
-    private String[] output;
-    private ArrayList<String> eids = new ArrayList<String>();
 
     /// Deze method haalt alle events op van de DB en zet ze in de ArrayList
     public void getData() {
@@ -56,7 +52,6 @@ public class CaldroidActivity extends FragmentActivity {
                             title = List.get(i).getString("Title");
                             begin = List.get(i).getDate("StartDate");
                             end = List.get(i).getDate("EndDate");
-                            eid = List.get(i).getString("eID");
 
                             SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MMMM yyyy HH:mm", Locale.getDefault());
                             sdf.setTimeZone(TimeZone.getTimeZone("CEST"));
