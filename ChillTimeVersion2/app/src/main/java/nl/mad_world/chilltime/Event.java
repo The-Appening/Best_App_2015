@@ -80,7 +80,7 @@ import java.text.SimpleDateFormat;
         String monthstart = startmonth.getText().toString();
         StartMonth = Integer.parseInt(monthstart);
 
-        this.StartMonth = StartMonth;
+        this.StartMonth = StartMonth-1;
     }
 
     public int getStartMonth() {
@@ -140,7 +140,7 @@ import java.text.SimpleDateFormat;
         String monthend = endmonth.getText().toString();
         EndMonth = Integer.parseInt(monthend);
 
-        this.EndMonth = EndMonth;
+        this.EndMonth = EndMonth-1;
     }
 
     public int getEndMonth() {

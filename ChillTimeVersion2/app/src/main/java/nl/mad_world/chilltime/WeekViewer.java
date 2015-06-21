@@ -73,7 +73,7 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
-        setupDateTimeInterpreter(false);
+        setupDateTimeInterpreter(true);
 
         getData();
     }
@@ -162,21 +162,17 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
             @Override
             public String interpretTime(int hour) {
-                if (hour == 24) {
-                    hour = 0;
-                }
-                return hour > 11 ? (hour + 1) + ":00 " : (hour == 0 ? "0:00" : hour + ":00 ");
+                if (hour == 24) hour = 0;
+                if(hour == 0) hour = 0;
+                return hour + ":00";
             }
         });
     }
 
     public void getData(){
-
         //Get Event
-        Calendar Start;
-        Calendar End;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
-        query.whereExists("StartHour");
+        query.whereExists("Title");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> List, ParseException e) {
                 try {
@@ -196,7 +192,29 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
                             endyear = List.get(i).getInt("EndYear");
                             endhour = List.get(i).getInt("EndHour");
                             endmin = List.get(i).getInt("EndMin");
+
+                            System.out.println("Dag: " + startday + "Maand: " + startmonth + "Jaar: " + startyear);
+
+                            int id = 3;
+                            Calendar startTime = Calendar.getInstance();
+                            startTime.set(Calendar.DAY_OF_MONTH, startday);
+                            startTime.set(Calendar.MONTH, startmonth);
+                            startTime.set(Calendar.YEAR, startyear);
+                            startTime.set(Calendar.HOUR_OF_DAY, starthour);
+                            startTime.set(Calendar.MINUTE, startmin);
+                            Calendar endTime = (Calendar) startTime.clone();
+                            endTime.set(Calendar.DAY_OF_MONTH, endday);
+                            endTime.set(Calendar.MONTH, endmonth);
+                            endTime.set(Calendar.YEAR, endyear);
+                            endTime.set(Calendar.HOUR_OF_DAY, endhour);
+                            endTime.set(Calendar.MINUTE, endmin);
+
+                            WeekViewEvent event2 = new WeekViewEvent(id++, title, startTime, endTime);
+                            event2.setColor(R.color.event_color_02);
+                            events.add(event2);
+
                             }
+
 
                     } else {
                         Log.d("Afspraken", "Error: " + e.getMessage());
@@ -214,47 +232,28 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
 
         // Populate the week view with some events.
-        List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+        List<WeekViewEvent> events = new ArrayList<>();
         int id= 0;
+
 
         //Create Event
         Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, Event.StartHour);
-        startTime.set(Calendar.MINUTE, Event.StartMin);
-        startTime.set(Calendar.MONTH, Event.StartMonth-1);
-        startTime.set(Calendar.YEAR, Event.StartYear);
-        startTime.set(Calendar.DAY_OF_MONTH, Event.StartDay);
-        Calendar endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, Event.EndHour);
-        endTime.add(Calendar.MINUTE, Event.EndMin);
-        endTime.set(Calendar.MONTH, Event.EndMonth-1);
-        endTime.add(Calendar.DAY_OF_MONTH, Event.EndDay);
-        endTime.add(Calendar.YEAR, Event.EndYear);
-
-        WeekViewEvent event = new WeekViewEvent(id++, Event.title, startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_01));
-        events.add(event);
-
-        startTime = Calendar.getInstance();
+        startTime.set(Calendar.DAY_OF_MONTH, startday);
+        startTime.set(Calendar.MONTH, startmonth);
+        startTime.set(Calendar.YEAR, startyear);
         startTime.set(Calendar.HOUR_OF_DAY, starthour);
         startTime.set(Calendar.MINUTE, startmin);
-        startTime.set(Calendar.DAY_OF_MONTH, startday);
-        startTime.set(Calendar.MONTH, startmonth-1);
-        startTime.set(Calendar.YEAR, startyear);
-        endTime = (Calendar) startTime.clone();
+        Calendar endTime = (Calendar) startTime.clone();
+        endTime.set(Calendar.DAY_OF_MONTH, endday);
+        endTime.set(Calendar.MONTH, endmonth);
+        endTime.set(Calendar.YEAR, endyear);
         endTime.set(Calendar.HOUR_OF_DAY, endhour);
         endTime.set(Calendar.MINUTE, endmin);
-        endTime.set(Calendar.DAY_OF_MONTH, endday);
-        endTime.set(Calendar.MONTH, endmonth-1);
-        endTime.set(Calendar.YEAR, endyear);
 
-        event = new WeekViewEvent(id++, title, startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_02));
-        events.add(event);
+        WeekViewEvent event1 = new WeekViewEvent(id++, title, startTime, endTime);
+        event1.setColor(R.color.event_color_01);
+        events.add(event1);
 
-        for (int i = 0; i < events.size(); i++) {
-            System.out.println(events.get(i).getName() + events.get(i).getStartTime() + events.get(i).getEndTime());
-        }
 
         mWeekView.notifyDatasetChanged();
         return events;

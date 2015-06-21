@@ -32,6 +32,16 @@ public class CaldroidActivity extends FragmentActivity {
     private CaldroidFragment caldroidFragment;
     private CaldroidFragment dialogCaldroidFragment;
     private String title;
+    private int startday;
+    private int starthour;
+    private int startmin;
+    private int startmonth;
+    private int startyear;
+    private int endday;
+    private int endhour;
+    private int endmin;
+    private int endmonth;
+    private int endyear;
     private static Date begin, end;
     public static ListView listView;
     private ArrayList events = new ArrayList();
@@ -40,7 +50,7 @@ public class CaldroidActivity extends FragmentActivity {
     /// Deze method haalt alle events op van de DB en zet ze in de ArrayList
     public void getData() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
-        query.whereExists("eID");
+        query.whereExists("objectId");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> List, ParseException e) {
                 try {
@@ -50,11 +60,26 @@ public class CaldroidActivity extends FragmentActivity {
 
                         for (int i = 0; i < List.size(); i++) {
                             title = List.get(i).getString("Title");
-                            begin = List.get(i).getDate("StartDate");
-                            end = List.get(i).getDate("EndDate");
+                            startday = List.get(i).getInt("StartDay");
+                            startmonth = List.get(i).getInt("StartMonth");
+                            startyear = List.get(i).getInt("StartYear");
+                            starthour = List.get(i).getInt("StartHour");
+                            startmin = List.get(i).getInt("StartMin");
+                            endday = List.get(i).getInt("EndDay");
+                            endmonth = List.get(i).getInt("EndMonth");
+                            endyear = List.get(i).getInt("EndYear");
+                            endhour = List.get(i).getInt("EndHour");
+                            endmin = List.get(i).getInt("EndMin");
+
+                            String bdate = startyear + "-" + startmonth + "-" + startday  + " " + starthour  + ":" + startmin;
+                            String edate = endyear + "-" + endmonth + "-" + endday  + " " + endhour  + ":" + endmin;
 
                             SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MMMM yyyy HH:mm", Locale.getDefault());
                             sdf.setTimeZone(TimeZone.getTimeZone("CEST"));
+
+                            begin = sdf.parse(bdate);
+                            end = sdf.parse(edate);
+
 
                             events.add("Titel: " + title + "\n" + "Van: " + sdf.format(begin) + "\n" + "Tot: " + sdf.format(end));
                             System.out.println(title + begin + end);
