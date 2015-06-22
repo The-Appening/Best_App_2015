@@ -416,8 +416,13 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             System.out.println(contacts.get(iditem));
             String Friend = contacts.get(iditem);
 
+            ParseUser currentUserObject = ParseUser.getCurrentUser();
+            final String currentUser = currentUserObject.getUsername();
+
             ParseQuery<ParseObject> query = new ParseQuery("ContactList");
+            query.whereEqualTo("UserOne", currentUser);
             query.whereEqualTo("UserTwo", Friend);
+
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> Contact, ParseException e) {
                 if (e == null) {
