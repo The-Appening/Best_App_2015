@@ -105,7 +105,7 @@ import java.text.SimpleDateFormat;
         String hourstart = starthour.getText().toString();
         StartHour = Integer.parseInt(hourstart);
 
-        this.StartHour = StartHour;
+        this.StartHour = StartHour-2;
     }
 
     public int getStartHour() {
@@ -165,7 +165,7 @@ import java.text.SimpleDateFormat;
         String hourend = endhour.getText().toString();
         EndHour = Integer.parseInt(hourend);
 
-        this.EndHour = EndHour;
+        this.EndHour = EndHour-2;
     }
 
     public int getEndHour() {
@@ -201,12 +201,12 @@ import java.text.SimpleDateFormat;
             ev.put("StartMonth", getStartMonth());
             ev.put("StartYear", getStartYear());
             ev.put("StartHour", getStartHour());
-            ev.put("StartDMin", getStartMin());
+            ev.put("StartMin", getStartMin());
             ev.put("EndDay", getEndDay());
-            ev.put("EndDMonth", getEndMonth());
+            ev.put("EndMonth", getEndMonth());
             ev.put("EndYear", getEndYear());
             ev.put("EndHour", getEndHour());
-            ev.put("EndDMin", getEndMin());
+            ev.put("EndMin", getEndMin());
             ev.saveInBackground();
 
             Toast.makeText(getApplicationContext(),
