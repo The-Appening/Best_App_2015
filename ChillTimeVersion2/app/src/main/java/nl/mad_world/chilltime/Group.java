@@ -362,12 +362,32 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public boolean onContextItemSelected(MenuItem item) {
             if(item.getTitle()=="Verwijderen"){
                 //TODO maken functie die contact verwijdert.
-               // voorbeeldfunctienaam(item.getItemId());
+               //
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                delete((int)info.id);
             }
             else {
                 return false;
             }
             return true;
+        }
+
+        public void delete(int iditem){
+            System.out.println(contacts.get(iditem));
+            String Friend = contacts.get(iditem);
+
+            ParseQuery<ParseObject> query = new ParseQuery("ContactList");
+            query.whereEqualTo("UserTwo", Friend);
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> Contact, ParseException e) {
+                if (e == null) {
+                    // Now let's update it with some new data. In this case, only cheatMode and score
+                    // will get sent to the Parse Cloud. playerName hasn't changed.
+                    int i = 0;
+                    Contact.get(i).deleteInBackground();
+                }
+            }
+        });
         }
 
         private static final String ARG_SECTION_NUMBER = "section_number";
@@ -385,8 +405,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
         public ContactFragment() {
         }
-
-        private static String[] Contactlist = {"Roy van den Heuvel","Johan Bos","Yoram van Spike", "Yoram van Spijk"};
 
         public static ContactFragment newInstance() {
             Bundle args = new Bundle();
