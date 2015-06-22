@@ -26,6 +26,7 @@ import com.parse.ParseQuery;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -37,21 +38,37 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_THREE_DAY_VIEW = 2;
     private static final int TYPE_WEEK_VIEW = 3;
+    public List<ParseObject> List;
+    public List<WeekViewEvent> events;
+    public ArrayList<ParseObject> activityArray = new ArrayList<>();
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
-    private List<ParseObject> List;
-    private List<WeekViewEvent> events;
-    private String title;
-    private int startday;
-    private int starthour;
-    private int startmin;
-    private int startmonth;
-    private int startyear;
-    private int endday;
-    private int endhour;
-    private int endmin;
-    private int endmonth;
-    private int endyear;
+
+    public void getData() {
+        //Get Event
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
+        query.whereExists("objectId");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> List, ParseException e) {
+                try {
+                    if (e == null) {
+
+                        Log.d("Afspraak", "Opgehaald " + List.size() + " afspraken");
+
+                        for (int i = 0; i < List.size(); i++) {
+                            activityArray.add(List.get(i));
+                        }
+
+                    } else {
+                        Log.d("Afspraken", "Error: " + e.getMessage());
+                    }
+                } catch (Exception t) {
+                    Toast.makeText(getApplicationContext(),
+                            "Kan geen afspraken ophalen!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +93,7 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
         setupDateTimeInterpreter(true);
 
         getData();
+
     }
 
 
@@ -89,11 +107,11 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         setupDateTimeInterpreter(id == R.id.action_week_view);
-        switch (id){
+        switch (id) {
             case R.id.eventcreate:
-            Intent intent = new Intent(this, Event.class);
+                Intent intent = new Intent(this, Event.class);
                 startActivity(intent);
-            return true;
+                return true;
             case R.id.action_today:
                 mWeekView.goToToday();
                 return true;
@@ -141,17 +159,16 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     /**
      * Set up a date time interpreter which will show short date values when in week view and long
      * date values otherwise.
+     *
      * @param shortDate True if the date values should be short.
      */
     private void setupDateTimeInterpreter(final boolean shortDate) {
         mWeekView.setDateTimeInterpreter(new DateTimeInterpreter() {
             @Override
             public String interpretDate(Calendar date) {
-                SimpleDateFormat weekdayNameFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
+                SimpleDateFormat weekdayNameFormat = new SimpleDateFormat("EEEE");
                 String weekday = weekdayNameFormat.format(date.getTime());
-                weekdayNameFormat.setTimeZone(TimeZone.getTimeZone("CEST"));
-                SimpleDateFormat format = new SimpleDateFormat("dd MMMM", Locale.getDefault());
-                format.setTimeZone(TimeZone.getTimeZone("CEST"));
+                SimpleDateFormat format = new SimpleDateFormat("dd MMMM");
 
                 // All android api level do not have a standard way of getting the first letter of
                 // the week day name. Hence we get the first char programmatically.
@@ -163,66 +180,8 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
             @Override
             public String interpretTime(int hour) {
                 if (hour == 24) hour = 0;
-                if(hour == 0) hour = 0;
+                if (hour == 0) hour = 0;
                 return hour + ":00";
-            }
-        });
-    }
-
-    public void getData(){
-        //Get Event
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
-        query.whereExists("Title");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> List, ParseException e) {
-                try {
-                    if (e == null) {
-
-                        Log.d("Afspraak", "Opgehaald " + List.size() + " afspraken");
-
-                        for (int i = 0; i < List.size(); i++) {
-                            title = List.get(i).getString("Title");
-                            startday = List.get(i).getInt("StartDay");
-                            startmonth = List.get(i).getInt("StartMonth");
-                            startyear = List.get(i).getInt("StartYear");
-                            starthour = List.get(i).getInt("StartHour");
-                            startmin = List.get(i).getInt("StartMin");
-                            endday = List.get(i).getInt("EndDay");
-                            endmonth = List.get(i).getInt("EndMonth");
-                            endyear = List.get(i).getInt("EndYear");
-                            endhour = List.get(i).getInt("EndHour");
-                            endmin = List.get(i).getInt("EndMin");
-
-                            System.out.println("Dag: " + startday + "Maand: " + startmonth + "Jaar: " + startyear);
-
-                            int id = 3;
-                            Calendar startTime = Calendar.getInstance();
-                            startTime.set(Calendar.DAY_OF_MONTH, startday);
-                            startTime.set(Calendar.MONTH, startmonth);
-                            startTime.set(Calendar.YEAR, startyear);
-                            startTime.set(Calendar.HOUR_OF_DAY, starthour);
-                            startTime.set(Calendar.MINUTE, startmin);
-                            Calendar endTime = (Calendar) startTime.clone();
-                            endTime.set(Calendar.DAY_OF_MONTH, endday);
-                            endTime.set(Calendar.MONTH, endmonth);
-                            endTime.set(Calendar.YEAR, endyear);
-                            endTime.set(Calendar.HOUR_OF_DAY, endhour);
-                            endTime.set(Calendar.MINUTE, endmin);
-
-                            WeekViewEvent event2 = new WeekViewEvent(id++, title, startTime, endTime);
-                            event2.setColor(R.color.event_color_02);
-                            events.add(event2);
-
-                            }
-
-
-                    } else {
-                        Log.d("Afspraken", "Error: " + e.getMessage());
-                    }
-                } catch (Exception t) {
-                    Toast.makeText(getApplicationContext(),
-                            "Kan geen afspraken ophalen!", Toast.LENGTH_LONG).show();
-                }
             }
         });
     }
@@ -233,35 +192,51 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
         // Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<>();
-        int id= 0;
-
 
         //Create Event
-        Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.DAY_OF_MONTH, startday);
-        startTime.set(Calendar.MONTH, startmonth);
-        startTime.set(Calendar.YEAR, startyear);
-        startTime.set(Calendar.HOUR_OF_DAY, starthour);
-        startTime.set(Calendar.MINUTE, startmin);
-        Calendar endTime = (Calendar) startTime.clone();
-        endTime.set(Calendar.DAY_OF_MONTH, endday);
-        endTime.set(Calendar.MONTH, endmonth);
-        endTime.set(Calendar.YEAR, endyear);
-        endTime.set(Calendar.HOUR_OF_DAY, endhour);
-        endTime.set(Calendar.MINUTE, endmin);
+        int num = 0;
+        int id = 0;
 
-        WeekViewEvent event1 = new WeekViewEvent(id++, title, startTime, endTime);
-        event1.setColor(R.color.event_color_01);
-        events.add(event1);
+
+        try {
+            for (int i = 0; i < activityArray.size(); i++) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+                sdf.setTimeZone(TimeZone.getTimeZone("CEST"));
+
+                String Title = activityArray.get(i).get("Title").toString();
+                Date start = (Date) activityArray.get(i).get("StartDate");
+                Date end = (Date) activityArray.get(i).get("EndDate");
+                String Group = activityArray.get(i).get("Group").toString();
+
+                String B = sdf.format(start);
+                String E = sdf.format(end);
+
+                Date Start = sdf.parse(B);
+                Date End = sdf.parse(E);
+
+                Calendar startTime = Calendar.getInstance();
+                startTime.setTime(Start);
+
+                Calendar endTime = (Calendar) startTime.clone();
+                endTime.setTime(End);
+
+                events.add(num++, new WeekViewEvent(++id, Title, startTime, endTime));
+                mWeekView.notifyDatasetChanged();
+
+            }
+        } catch (java.text.ParseException p) {
+
+        }
 
 
         mWeekView.notifyDatasetChanged();
+
         return events;
 
     }
 
     private String getEventTitle(Calendar time) {
-        return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH)+1, time.get(Calendar.DAY_OF_MONTH));
+        return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override
