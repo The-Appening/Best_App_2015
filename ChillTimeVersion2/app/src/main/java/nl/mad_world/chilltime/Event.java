@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
  */
     public class Event extends Activity {
 
-    public static String title;
+    public static String Title;
     public ParseObject ev;
     public static int StartDay;
     public static int StartMonth;
@@ -34,7 +34,8 @@ import java.text.SimpleDateFormat;
 
 
     /// BEGIN OF CONSTRUCTOR ////
-    public Event(int startDay, int startMonth, int startYear, int startHour, int startMin, int endDay, int endMonth, int endYear, int endHour, int endMin) {
+    public Event(String title, int startDay, int startMonth, int startYear, int startHour, int startMin, int endDay, int endMonth, int endYear, int endHour, int endMin) {
+        Title = title;
         StartDay = startDay;
         StartMonth = startMonth;
         StartYear = startYear;
@@ -53,14 +54,14 @@ import java.text.SimpleDateFormat;
 
     /// BEGIN OF GETTERS ///
     public String getTitler() {
-        return title;
+        return Title;
     }
 
     public void setTitler() {
         EditText name = (EditText) findViewById(R.id.eventName);
         String title = name.getText().toString();
 
-        this.title = title;
+        this.Title = title;
     }
 
     public void setStartDay() {
