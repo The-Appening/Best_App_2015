@@ -28,12 +28,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 
 public class WeekViewer extends ActionBarActivity implements WeekView.MonthChangeListener,
-        WeekView.EventClickListener, WeekView.EventLongPressListener {
+        WeekView.EventClickListener, WeekView.EventLongPressListener, WeekView.ScrollListener {
 
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_THREE_DAY_VIEW = 2;
@@ -87,6 +86,8 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
         // Set long press listener for events.
         mWeekView.setEventLongPressListener(this);
+
+        mWeekView.setScrollListener(this);
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
@@ -189,30 +190,26 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-
         // Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<>();
+        Date today = new Date();
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(today);
+        int month = cal.get(Calendar.MONTH);
 
         //Create Event
         int num = 0;
         int id = 0;
 
-
-        try {
             for (int i = 0; i < activityArray.size(); i++) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-                sdf.setTimeZone(TimeZone.getTimeZone("CEST"));
-
                 String Title = activityArray.get(i).get("Title").toString();
-                Date start = (Date) activityArray.get(i).get("StartDate");
-                Date end = (Date) activityArray.get(i).get("EndDate");
+                Date Start = (Date) activityArray.get(i).get("StartDate");
+                Date End = (Date) activityArray.get(i).get("EndDate");
                 String Group = activityArray.get(i).get("Group").toString();
 
-                String B = sdf.format(start);
-                String E = sdf.format(end);
-
-                Date Start = sdf.parse(B);
-                Date End = sdf.parse(E);
+                SimpleDateFormat format = new SimpleDateFormat("dd MM yyyy HH:mm");
+                format.setTimeZone(TimeZone.getTimeZone("429"));
 
                 Calendar startTime = Calendar.getInstance();
                 startTime.setTime(Start);
@@ -224,10 +221,6 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
                 mWeekView.notifyDatasetChanged();
 
             }
-        } catch (java.text.ParseException p) {
-
-        }
-
 
         mWeekView.notifyDatasetChanged();
 
@@ -253,5 +246,10 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     public void createEvent(View v) {
         Intent create = new Intent(this, Event.class);
         startActivity(create);
+    }
+
+    @Override
+    public void onFirstVisibleDayChanged(Calendar calendar, Calendar calendar1) {
+        mWeekView.notifyDatasetChanged();
     }
 }
