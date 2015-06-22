@@ -228,8 +228,8 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             View rootView = inflater.inflate(R.layout.fragment_group, container, false);
             getContactData();
             ListView listView = (ListView) rootView.findViewById(R.id.GlistView);
-            listView.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,Groups));
-
+            listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Groups));
+            registerForContextMenu(listView);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
@@ -246,6 +246,46 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
             return rootView;
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            menu.setHeaderTitle("Context Menu");
+            menu.add(0, v.getId(), 0, "Verwijderen");
+        }
+
+        @Override
+        public boolean onContextItemSelected(MenuItem item) {
+            if(item.getTitle()=="Verwijderen"){
+                //TODO maken functie die contact verwijdert.
+                //
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                delete((int)info.id);
+            }
+            else {
+                return false;
+            }
+            return true;
+        }
+
+        public void delete(int iditem){
+            System.out.println(Groups.get(iditem));
+            String GroupName = Groups.get(iditem);
+
+            ParseQuery<ParseObject> query = new ParseQuery("Groups");
+            query.whereEqualTo("Name", GroupName);
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> Group, ParseException e) {
+                    if (e == null) {
+                        // Now let's update it with some new data. In this case, only cheatMode and score
+                        // will get sent to the Parse Cloud. playerName hasn't changed.
+                        int i = 0;
+                        Group.get(i).deleteInBackground();
+                    }
+                }
+            });
+        }
+
     }
 
     /**
