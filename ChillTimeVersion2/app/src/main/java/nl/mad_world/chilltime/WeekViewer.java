@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 
 public class WeekViewer extends ActionBarActivity implements WeekView.MonthChangeListener,
@@ -207,9 +206,6 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
                 Date Start = (Date) activityArray.get(i).get("StartDate");
                 Date End = (Date) activityArray.get(i).get("EndDate");
                 String Group = activityArray.get(i).get("Group").toString();
-
-                SimpleDateFormat format = new SimpleDateFormat("dd MM yyyy HH:mm");
-                format.setTimeZone(TimeZone.getTimeZone("429"));
 
                 Calendar startTime = Calendar.getInstance();
                 startTime.setTime(Start);
