@@ -36,6 +36,7 @@ import java.util.Locale;
 
 public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -260,9 +261,9 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_group, container, false);
+            final View rootView = inflater.inflate(R.layout.fragment_group, container, false);
             getContactData();
-            ListView listView = (ListView) rootView.findViewById(R.id.GlistView);
+            final ListView listView = (ListView) rootView.findViewById(R.id.GlistView);
             listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Groups));
             registerForContextMenu(listView);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -272,7 +273,9 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
                                         int position, long arg3) {
 
 
+
                     Intent intent = new Intent(getActivity(), WeekViewer.class);
+                    intent.putExtra("SelectedGroup", Groups.get(position));
                     startActivity(intent);
 
 

@@ -45,10 +45,16 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     private WeekView mWeekView;
     public DateFormat df = new SimpleDateFormat("");
 
+
     public void getData() {
         //METHOD OM ALLE EVENTS VAN PARSE.COM OP TE HALEN EN ZET DEZE IN EEN ARRAYLIST.
+        Intent getintent = getIntent();
+        String sel = getintent.getExtras().getString("SelectedGroup");
+        System.out.println(sel);
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
-        query.whereExists("objectId");
+        query.whereExists("Title");
+        query.whereEqualTo("Group", sel);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> List, ParseException e) {
                 try {
@@ -196,11 +202,10 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
         // Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<>();
 
-
-
         //Create Event
         int num = 0;
         int id = 0;
+
 
             for (int i = 0; i < activityArray.size(); i++) {
                 String Title = activityArray.get(i).get("Title").toString();
@@ -216,14 +221,15 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
                 Calendar endTime = (Calendar) startTime.clone();
                 endTime.setTime(End);
 
+
                 WeekViewEvent event = new WeekViewEvent(++id, Title, startTime, endTime);
                 mWeekView.setDefaultEventColor(getResources().getColor(R.color.event_color_02));
                 events.add(num++, event);
                 mWeekView.notifyDatasetChanged();
-
             }
 
         mWeekView.notifyDatasetChanged();
+
 
         return events;
 
