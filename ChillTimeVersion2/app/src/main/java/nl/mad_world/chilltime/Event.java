@@ -41,15 +41,12 @@ public class Event extends Activity {
 
     public Date getStart() throws java.text.ParseException {
         EditText startday = (EditText) findViewById(R.id.StartDay);
-        int startDay = Integer.parseInt(startday.getText().toString());
         String daystart = startday.getText().toString();
 
         EditText startmonth = (EditText) findViewById(R.id.StartMonth);
-        int startMonth = Integer.parseInt(startmonth.getText().toString());
         String monthstart = startmonth.getText().toString();
 
         EditText startyear = (EditText) findViewById(R.id.StartYear);
-        int startYear = Integer.parseInt(startyear.getText().toString());
         String yearstart = startyear.getText().toString();
 
         EditText starthour = (EditText) findViewById(R.id.StartHour);
@@ -57,7 +54,6 @@ public class Event extends Activity {
         String hourstart = starthour.getText().toString();
 
         EditText startmin = (EditText) findViewById(R.id.StartMin);
-        int startMin = Integer.parseInt(startmin.getText().toString());
         String minstart = startmin.getText().toString();
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -75,15 +71,12 @@ public class Event extends Activity {
 
     public Date getEnd() throws java.text.ParseException {
         EditText endday = (EditText) findViewById(R.id.EndDay);
-        int endDay = Integer.parseInt(endday.getText().toString());
         String dayend = endday.getText().toString();
 
         EditText endmonth = (EditText) findViewById(R.id.EndMonth);
-        int endMonth = Integer.parseInt(endmonth.getText().toString());
         String monthend = endmonth.getText().toString();
 
         EditText endyear = (EditText) findViewById(R.id.EndYear);
-        int endYear = Integer.parseInt(endyear.getText().toString());
         String yearend = endyear.getText().toString();
 
         EditText endhour = (EditText) findViewById(R.id.EndHour);
