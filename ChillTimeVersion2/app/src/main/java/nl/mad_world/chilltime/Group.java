@@ -120,8 +120,12 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
     public void Refresh() {
 
-       finish();
-        startActivity(getIntent());
+        Intent refresh = new Intent(this, Group.class);
+        startActivity(refresh);//Start the same Activity
+        finish(); //finish Activity.
+
+       //finish();
+        //startActivity(getIntent());
     }
 
     public void AddContact(View view) {
