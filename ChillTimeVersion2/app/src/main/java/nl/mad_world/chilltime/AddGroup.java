@@ -18,8 +18,6 @@ import java.util.List;
 
 public class AddGroup extends ActionBarActivity {
 
-    String groupName = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +25,7 @@ public class AddGroup extends ActionBarActivity {
     }
 
     public void SaveGroup(View view) {
+
         EditText gNameET = (EditText) findViewById(R.id.groupName);
         String groupName = gNameET.getText().toString();
 
@@ -45,6 +44,9 @@ public class AddGroup extends ActionBarActivity {
     }
 
     public void register() {
+        EditText gNameET = (EditText) findViewById(R.id.groupName);
+        String groupName = gNameET.getText().toString();
+
         ParseUser currentUser = ParseUser.getCurrentUser();
         String username = currentUser.getUsername();
 
