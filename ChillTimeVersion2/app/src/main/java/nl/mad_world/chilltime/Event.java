@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by Johan on 12-6-2015.
@@ -92,10 +93,11 @@ public class Event extends Activity {
         EditText endmin = (EditText) findViewById(R.id.EndMin);
         String minend = endmin.getText().toString();
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         ///MAAKT VAN ALLE STRINGS EEN Date
-        Date endDate = df.parse(yearend + "-" + monthend + "-" + dayend + " " + hourend + ":" + minend);
+        Date endDate = sdf.parse(yearend + "-" + monthend + "-" + dayend + " " + hourend + ":" + minend);
 
         end = endDate;
 

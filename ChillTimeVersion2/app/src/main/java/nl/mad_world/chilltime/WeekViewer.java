@@ -17,8 +17,6 @@ import android.widget.Toast;
 import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -36,8 +34,6 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_THREE_DAY_VIEW = 2;
     private static final int TYPE_WEEK_VIEW = 3;
-    public List<ParseObject> List;
-    public List<WeekViewEvent> events;
     public ArrayList<ParseObject> activityArray = new ArrayList<>();
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
@@ -53,24 +49,22 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
         query.whereExists("Title");
         query.whereEqualTo("Group", select);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> List, ParseException e) {
-                try {
-                    if (e == null) {
+        query.findInBackground((List, e) -> {
+            try {
+                if (e == null) {
 
-                        Log.d("Afspraak", "Opgehaald " + List.size() + " afspraken");
+                    Log.d("Afspraak", "Opgehaald " + List.size() + " afspraken");
 
-                        for (int i = 0; i < List.size(); i++) {
-                            activityArray.add(List.get(i));
-                        }
-
-                    } else {
-                        Log.d("Afspraken", "Error: " + e.getMessage());
+                    for (int i = 0; i < List.size(); i++) {
+                        activityArray.add(List.get(i));
                     }
-                } catch (Exception t) {
-                    Toast.makeText(getApplicationContext(),
-                            "Kan geen afspraken ophalen!", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Log.d("Afspraken", "Error: " + e.getMessage());
                 }
+            } catch (Exception t) {
+                Toast.makeText(getApplicationContext(),
+                        "Kan geen afspraken ophalen!", Toast.LENGTH_LONG).show();
             }
         });
     }
