@@ -119,7 +119,8 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
     }
 
     public void Refresh() {
-        finish();
+
+       finish();
         startActivity(getIntent());
     }
 
