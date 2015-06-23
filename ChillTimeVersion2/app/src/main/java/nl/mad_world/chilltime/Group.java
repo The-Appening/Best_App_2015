@@ -164,9 +164,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             }
             if (position == 1) {
                 return ContactFragment.newInstance(position);
-            }
-            if (position == 2) {
-                return SettingsFragment.newInstance(position);
             } else {
                 return null;
             }
@@ -175,7 +172,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -186,8 +183,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
                     return getString(R.string.title_section1).toUpperCase(l);
                 case 1:
                     return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
             }
             return null;
         }
@@ -326,41 +321,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
     }
 
     /**
-     * Settings fragment
-     */
-    public static class SettingsFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static SettingsFragment newInstance(int sectionNumber) {
-            SettingsFragment fragment = new SettingsFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public SettingsFragment() {
-        }
-
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
-
-            return rootView;
-        }
-    }
-
-    /**
      * Contactfragment
      */
     public static class ContactFragment extends Fragment {
@@ -477,7 +437,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
                 });
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("It doesn't work");
             }
         }
 
