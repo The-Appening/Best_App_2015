@@ -46,13 +46,13 @@
         </activity>
         <activity
             android:name=".CaldroidActivity"
-            android:screenOrientation="portrait"
-            android:label="Agenda" >
+            android:label="Agenda"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-        android:name=".Event"
-        android:label="Afspraak Maken" >
-    </activity>
+            android:name=".Event"
+            android:label="Afspraak Maken" >
+        </activity>
         <activity
             android:name=".AddGroup"
             android:label="@string/title_activity_add_group" >
@@ -61,5 +61,14 @@
             android:name=".WeekViewer"
             android:label="Kalender" >
         </activity>
+        <activity
+            android:name=".dummy.AddGroupMember"
+            android:label="@string/title_activity_add_group_member" >
+        </activity>
+        <activity
+            android:name=".AddGroupMember"
+            android:label="@string/title_activity_add_group_member" >
+        </activity>
     </application>
+
 </manifest>

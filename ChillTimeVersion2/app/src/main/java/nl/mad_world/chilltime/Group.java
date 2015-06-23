@@ -1,5 +1,6 @@
 package nl.mad_world.chilltime;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,12 +50,14 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    static Context mContext;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
+        mContext = this;
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
@@ -289,8 +292,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         @Override
         public boolean onContextItemSelected(MenuItem item) {
             if (item.getTitle() == "Verwijderen") {
-                //TODO maken functie die contact verwijdert.
-                //
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
                 delete((int) info.id);
             } else {
@@ -300,7 +301,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         }
 
         public void delete(int iditem) {
-            System.out.println(Groups.get(iditem));
+
             String GroupName = Groups.get(iditem);
             String username = ParseUser.getCurrentUser().getUsername();
 
@@ -376,6 +377,23 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             contactList();
             ContactList.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, contacts));
             registerForContextMenu(ContactList);
+            ContactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1,
+                                        int position, long arg3) {
+
+
+                    String member = contacts.get(position);
+                    Intent intent = new Intent(getActivity(), AddGroupMember.class);
+
+                    intent.putExtra("NewMember", member);
+
+                    startActivity(intent);
+
+
+                }
+            });
 
             return rootView;
         }
@@ -422,9 +440,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
         @Override
         public boolean onContextItemSelected(MenuItem item) {
-            if (item.getTitle() == "Verwijderen") {
-                //TODO maken functie die contact verwijdert.
-
+            if (item.getTitle().equals("Verwijderen")) {
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
                 delete((int) info.id);
             } else {
@@ -433,10 +449,10 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             return true;
         }
 
+
         public void delete(int iditem) {
 
             try {
-                System.out.println(contacts.get(iditem));
                 String Friend = contacts.get(iditem);
 
                 ParseUser currentUserObject = ParseUser.getCurrentUser();
@@ -457,6 +473,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
                     }
                 });
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("It doesn't work");
             }
         }
