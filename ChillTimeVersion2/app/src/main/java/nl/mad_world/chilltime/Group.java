@@ -114,13 +114,13 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         return true;
     }
 
-    public void Refresh(){
-        ViewGroup vg = (ViewGroup) findViewById (R.layout.fragment_contact);
+    public void Refresh() {
+        ViewGroup vg = (ViewGroup) findViewById(R.layout.fragment_contact);
         vg.removeAllViews();
         vg.refreshDrawableState();
     }
 
-    public void AddContact(View view){
+    public void AddContact(View view) {
         Intent intent = new Intent(this, addContact.class);
 
         startActivity(intent);
@@ -155,16 +155,15 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if(position == 0) {
+            if (position == 0) {
                 return GroupFragment.newInstance(position);
             }
-            if(position == 1) {
+            if (position == 1) {
                 return ContactFragment.newInstance(position);
             }
-            if(position == 2) {
+            if (position == 2) {
                 return SettingsFragment.newInstance(position);
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -190,7 +189,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         }
     }
 
-    public void AddAGroup(View view){
+    public void AddAGroup(View view) {
 
         Intent intent = new Intent(this, AddGroup.class);
 
@@ -222,20 +221,21 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
         public GroupFragment() {
         }
+
         private static ArrayList<String> Groups = new ArrayList<String>();
 
-        public void getContactData(){
+        public void getContactData() {
             //Groups.clear();
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Group_members");
             ParseUser currentUser = ParseUser.getCurrentUser();
 
             String username = currentUser.getUsername();
-            query.whereEqualTo("Creator", username);
+            query.whereEqualTo("Username", username);
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> objects, ParseException e) {
                     if (e == null) {
                         for (int i = 0; i < objects.size(); i++) {
-                            Groups.add(objects.get(i).getString("Name"));
+                            Groups.add(objects.get(i).getString("GroupName"));
                         }
                     } else {
                         Groups.add("Er zijn geen gebruikers gevonden");
@@ -244,7 +244,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
                 }
             });
         }
-
 
 
         public static GroupFragment newInstance() {
@@ -289,24 +288,25 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
         @Override
         public boolean onContextItemSelected(MenuItem item) {
-            if(item.getTitle()=="Verwijderen"){
+            if (item.getTitle() == "Verwijderen") {
                 //TODO maken functie die contact verwijdert.
                 //
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                delete((int)info.id);
-            }
-            else {
+                delete((int) info.id);
+            } else {
                 return false;
             }
             return true;
         }
 
-        public void delete(int iditem){
+        public void delete(int iditem) {
             System.out.println(Groups.get(iditem));
             String GroupName = Groups.get(iditem);
+            String username = ParseUser.getCurrentUser().getUsername();
 
-            ParseQuery<ParseObject> query = new ParseQuery("Groups");
-            query.whereEqualTo("Name", GroupName);
+            ParseQuery<ParseObject> query = new ParseQuery("Group_members");
+            query.whereEqualTo("Username", username);
+            query.whereEqualTo("GroupName", GroupName);
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> Group, ParseException e) {
                     if (e == null) {
@@ -347,7 +347,6 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         }
 
 
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -365,7 +364,8 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
          * The fragment argument representing the section number for this
          * fragment.
          */
-        ArrayList<String> contacts = new ArrayList<>();;
+        ArrayList<String> contacts = new ArrayList<>();
+        ;
 
 
         @Override
@@ -380,7 +380,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             return rootView;
         }
 
-        public void contactList(){
+        public void contactList() {
             ParseUser cUser = ParseUser.getCurrentUser();
             String cUserName = cUser.getUsername();
             ParseQuery<ParseObject> query = new ParseQuery("ContactList");
@@ -422,13 +422,12 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
         @Override
         public boolean onContextItemSelected(MenuItem item) {
-            if(item.getTitle()=="Verwijderen"){
+            if (item.getTitle() == "Verwijderen") {
                 //TODO maken functie die contact verwijdert.
 
-               AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-              delete((int)info.id);
-            }
-            else {
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                delete((int) info.id);
+            } else {
                 return false;
             }
             return true;
@@ -436,33 +435,34 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
         public void delete(int iditem) {
 
-                    try{
-            System.out.println(contacts.get(iditem));
-            String Friend = contacts.get(iditem);
+            try {
+                System.out.println(contacts.get(iditem));
+                String Friend = contacts.get(iditem);
 
-            ParseUser currentUserObject = ParseUser.getCurrentUser();
-            final String currentUser = currentUserObject.getUsername();
+                ParseUser currentUserObject = ParseUser.getCurrentUser();
+                final String currentUser = currentUserObject.getUsername();
 
-            ParseQuery<ParseObject> query = new ParseQuery("ContactList");
-            query.whereEqualTo("UserOne", currentUser);
-            query.whereEqualTo("UserTwo", Friend);
+                ParseQuery<ParseObject> query = new ParseQuery("ContactList");
+                query.whereEqualTo("UserOne", currentUser);
+                query.whereEqualTo("UserTwo", Friend);
 
-            query.findInBackground(new FindCallback<ParseObject>() {
-                public void done(List<ParseObject> Contact, ParseException e) {
-                    if (e == null) {
-                        // Now let's update it with some new data. In this case, only cheatMode and score
-                        // will get sent to the Parse Cloud. playerName hasn't changed.
-                        int i = 0;
-                        Contact.get(i).deleteInBackground();
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> Contact, ParseException e) {
+                        if (e == null) {
+                            // Now let's update it with some new data. In this case, only cheatMode and score
+                            // will get sent to the Parse Cloud. playerName hasn't changed.
+                            int i = 0;
+                            Contact.get(i).deleteInBackground();
+                        }
                     }
-                }
-            });
-        }catch(Exception e){
+                });
+            } catch (Exception e) {
                 System.out.println("It doesn't work");
             }
         }
 
         private static final String ARG_SECTION_NUMBER = "section_number";
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
