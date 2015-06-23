@@ -23,11 +23,13 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 
 public class WeekViewer extends ActionBarActivity implements WeekView.MonthChangeListener,
@@ -41,9 +43,10 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     public ArrayList<ParseObject> activityArray = new ArrayList<>();
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
+    public DateFormat df = new SimpleDateFormat("");
 
     public void getData() {
-        //Get Event
+        //METHOD OM ALLE EVENTS VAN PARSE.COM OP TE HALEN EN ZET DEZE IN EEN ARRAYLIST.
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
         query.whereExists("objectId");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -73,10 +76,10 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weekview);
 
-        // Get a reference for the week view in the layout.
+        // ELEMENT INSTELLEN IN XML
         mWeekView = (WeekView) findViewById(R.id.weekView);
 
-        // Show a toast message about the touched event.
+        // ALS JE OP EVENT CLICKT KRIJG JE EEN TOAST.
         mWeekView.setOnEventClickListener(this);
 
         // The week view has infinite scrolling horizontally. We have to provide the events of a
@@ -127,6 +130,7 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
                 }
                 return true;
+
             case R.id.action_three_day_view:
                 if (mWeekViewType != TYPE_THREE_DAY_VIEW) {
                     item.setChecked(!item.isChecked());
@@ -191,11 +195,8 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
         // Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<>();
-        Date today = new Date();
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(today);
-        int month = cal.get(Calendar.MONTH);
+
 
         //Create Event
         int num = 0;
@@ -207,13 +208,17 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
                 Date End = (Date) activityArray.get(i).get("EndDate");
                 String Group = activityArray.get(i).get("Group").toString();
 
+                df.setTimeZone(TimeZone.getTimeZone("CEST"));
+
                 Calendar startTime = Calendar.getInstance();
                 startTime.setTime(Start);
 
                 Calendar endTime = (Calendar) startTime.clone();
                 endTime.setTime(End);
 
-                events.add(num++, new WeekViewEvent(++id, Title, startTime, endTime));
+                WeekViewEvent event = new WeekViewEvent(++id, Title, startTime, endTime);
+                mWeekView.setDefaultEventColor(getResources().getColor(R.color.event_color_02));
+                events.add(num++, event);
                 mWeekView.notifyDatasetChanged();
 
             }
@@ -235,7 +240,6 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(WeekViewer.this, "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
     }
 
     /// Intent om naar Event te gaan.
