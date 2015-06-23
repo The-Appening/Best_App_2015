@@ -339,21 +339,10 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
-            ListView listView = (ListView) rootView.findViewById(R.id.ClistView);
+            ListView ContactList = (ListView) rootView.findViewById(R.id.ClistView);
             contactList();
-            listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, contacts));
-            registerForContextMenu(listView);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> arg0, View arg1,
-                                        int position, long arg3) {
-
-                    Intent intent = new Intent(getActivity(), Contact.class);
-                    startActivity(intent);
-
-                }
-            });
+            ContactList.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, contacts));
+            registerForContextMenu(ContactList);
 
             return rootView;
         }
@@ -402,9 +391,9 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
         public boolean onContextItemSelected(MenuItem item) {
             if(item.getTitle()=="Verwijderen"){
                 //TODO maken functie die contact verwijdert.
-               //
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                delete((int)info.id);
+
+               AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+              delete((int)info.id);
             }
             else {
                 return false;
@@ -412,7 +401,9 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             return true;
         }
 
-        public void delete(int iditem){
+        public void delete(int iditem) {
+
+                    try{
             System.out.println(contacts.get(iditem));
             String Friend = contacts.get(iditem);
 
@@ -425,14 +416,17 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> Contact, ParseException e) {
-                if (e == null) {
-                    // Now let's update it with some new data. In this case, only cheatMode and score
-                    // will get sent to the Parse Cloud. playerName hasn't changed.
-                    int i = 0;
-                    Contact.get(i).deleteInBackground();
+                    if (e == null) {
+                        // Now let's update it with some new data. In this case, only cheatMode and score
+                        // will get sent to the Parse Cloud. playerName hasn't changed.
+                        int i = 0;
+                        Contact.get(i).deleteInBackground();
+                    }
                 }
+            });
+        }catch(Exception e){
+                System.out.println("It doesn't work");
             }
-        });
         }
 
         private static final String ARG_SECTION_NUMBER = "section_number";
