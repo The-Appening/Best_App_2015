@@ -247,7 +247,7 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     }
 
     @Override
-    public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
+    public void onEventLongPress(WeekViewEvent ev, RectF eventRect) {
     }
 
     @Override

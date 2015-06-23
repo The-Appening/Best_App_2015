@@ -13,7 +13,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by Johan on 12-6-2015.
@@ -64,7 +63,7 @@ public class Event extends Activity {
         EditText startmin = (EditText) findViewById(R.id.StartMin);
         String minstart = startmin.getText().toString();
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         ///MAAKT VAN ALLE STRINGS EEN Date
         Date startDate = df.parse(yearstart + "-" + monthstart + "-" + daystart + " " + hourstart + ":" + minstart);
@@ -93,7 +92,7 @@ public class Event extends Activity {
         EditText endmin = (EditText) findViewById(R.id.EndMin);
         String minend = endmin.getText().toString();
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         ///MAAKT VAN ALLE STRINGS EEN Date
         Date endDate = df.parse(yearend + "-" + monthend + "-" + dayend + " " + hourend + ":" + minend);
