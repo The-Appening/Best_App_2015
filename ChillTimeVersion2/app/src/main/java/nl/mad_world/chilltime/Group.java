@@ -269,8 +269,11 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
 
 
                     Intent intent = new Intent(getActivity(), WeekViewer.class);
-                    intent.putExtra("SelectedGroup", Groups.get(position));
+                    intent.putExtra("selectedGroup", Groups.get(position));
+                    intent.putExtra(: )
                     startActivity(intent);
+
+
 
 
                 }

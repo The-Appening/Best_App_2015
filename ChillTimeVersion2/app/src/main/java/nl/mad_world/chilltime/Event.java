@@ -24,11 +24,6 @@ public class Event extends Activity {
     public Date end;
     public ParseObject ev;
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_events);
-    }
-
     public Event() {
     }
 
@@ -38,6 +33,10 @@ public class Event extends Activity {
         this.end = end;
     }
 
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_events);
+    }
 
     public String getTitles() {
         /// HAALT DE WAARDE VAN DE INPUT VOOR DE TITEL
@@ -110,10 +109,14 @@ public class Event extends Activity {
     /// METHOD OM EVENTS OP TE SLAAN IN PARSE.COM
     public void saveDate() throws ParseException, java.text.ParseException {
         try {
+            Intent groups = getIntent();
+            String selGroup = groups.getExtras().getString("Groups");
+
             ParseObject ev = new ParseObject("Event");
             ev.put("Title", getTitles());
             ev.put("StartDate", getStart());
             ev.put("EndDate", getEnd());
+            ev.put("Group", selGroup);
             ev.saveInBackground();
 
             Toast.makeText(getApplicationContext(),

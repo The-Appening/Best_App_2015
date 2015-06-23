@@ -12,7 +12,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
@@ -46,15 +45,16 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     public DateFormat df = new SimpleDateFormat("");
 
 
+
+
     public void getData() {
         //METHOD OM ALLE EVENTS VAN PARSE.COM OP TE HALEN EN ZET DEZE IN EEN ARRAYLIST.
-        Intent getintent = getIntent();
-        String sel = getintent.getExtras().getString("SelectedGroup");
-        System.out.println(sel);
+        Intent getGroup = getIntent();
+        String select = getGroup.getExtras().getString("selectedGroup");
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
         query.whereExists("Title");
-        query.whereEqualTo("Group", sel);
+        query.whereEqualTo("Group", select);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> List, ParseException e) {
                 try {
@@ -118,9 +118,15 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
         setupDateTimeInterpreter(id == R.id.action_week_view);
         switch (id) {
             case R.id.eventcreate:
-                Intent intent = new Intent(this, Event.class);
-                startActivity(intent);
+
+                Intent getSel = getIntent();
+                String selected = getSel.getExtras().getString("selectedGroup");
+
+                Intent createEvent = new Intent(this, Event.class);
+                createEvent.putExtra("Groups", selected);
+                startActivity(createEvent);
                 return true;
+
             case R.id.action_today:
                 mWeekView.goToToday();
                 return true;
@@ -246,12 +252,6 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-    }
-
-    /// Intent om naar Event te gaan.
-    public void createEvent(View v) {
-        Intent create = new Intent(this, Event.class);
-        startActivity(create);
     }
 
     @Override
