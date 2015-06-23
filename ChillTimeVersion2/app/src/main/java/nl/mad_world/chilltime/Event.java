@@ -13,7 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
+import java.util.Locale;
 
 /**
  * Created by Johan on 12-6-2015.
@@ -64,8 +64,7 @@ public class Event extends Activity {
         EditText startmin = (EditText) findViewById(R.id.StartMin);
         String minstart = startmin.getText().toString();
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        df.setTimeZone(TimeZone.getTimeZone("CEST"));
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
 
         ///MAAKT VAN ALLE STRINGS EEN Date
         Date startDate = df.parse(yearstart + "-" + monthstart + "-" + daystart + " " + hourstart + ":" + minstart);
@@ -94,8 +93,7 @@ public class Event extends Activity {
         EditText endmin = (EditText) findViewById(R.id.EndMin);
         String minend = endmin.getText().toString();
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        df.setTimeZone(TimeZone.getTimeZone("CEST"));
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
 
         ///MAAKT VAN ALLE STRINGS EEN Date
         Date endDate = df.parse(yearend + "-" + monthend + "-" + dayend + " " + hourend + ":" + minend);
@@ -123,6 +121,7 @@ public class Event extends Activity {
                     "Afspraak aangemaakt!", Toast.LENGTH_LONG).show();
 
             Intent cal = new Intent(this, WeekViewer.class);
+            cal.putExtra("selectedGroup", selGroup);
             startActivity(cal);
 
         } catch (android.net.ParseException e) {

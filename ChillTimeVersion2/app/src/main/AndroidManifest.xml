@@ -59,7 +59,7 @@
         </activity>
         <activity
             android:name=".WeekViewer"
-            android:label="Kalender" >
+            android:label="Agenda" >
         </activity>
         <activity
             android:name=".dummy.AddGroupMember"

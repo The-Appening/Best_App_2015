@@ -22,7 +22,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,7 +41,6 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     public ArrayList<ParseObject> activityArray = new ArrayList<>();
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
-    public DateFormat df = new SimpleDateFormat("");
 
 
 
@@ -217,11 +215,9 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
                 String Title = activityArray.get(i).get("Title").toString();
                 Date Start = (Date) activityArray.get(i).get("StartDate");
                 Date End = (Date) activityArray.get(i).get("EndDate");
-                String Group = activityArray.get(i).get("Group").toString();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
 
-                df.setTimeZone(TimeZone.getTimeZone("CEST"));
-
-                Calendar startTime = Calendar.getInstance();
+                Calendar startTime = Calendar.getInstance(TimeZone.getTimeZone("CEST"));
                 startTime.setTime(Start);
 
                 Calendar endTime = (Calendar) startTime.clone();
