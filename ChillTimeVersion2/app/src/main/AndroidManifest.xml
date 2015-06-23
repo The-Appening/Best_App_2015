@@ -45,11 +45,6 @@
             android:label="@string/title_activity_add_contact" >
         </activity>
         <activity
-            android:name=".CaldroidActivity"
-            android:screenOrientation="portrait"
-            android:label="Agenda" >
-        </activity>
-        <activity
         android:name=".Event"
         android:label="Afspraak Maken" >
     </activity>
