@@ -23,16 +23,18 @@ public class Event extends Activity {
     public Date end;
     public ParseObject ev;
 
-    public Event(){}
+    public Event() {
+    }
 
-        public Event(String title,Date start, Date end) {
-            this.title = title;
-            this.start = start;
-            this.end = end;
-        }
+    public Event(String title, Date start, Date end) {
+        this.title = title;
+        this.start = start;
+        this.end = end;
+    }
 
 
     public String getTitles() {
+        /// HAALT DE WAARDE VAN DE INPUT VOOR DE TITEL
         EditText name = (EditText) findViewById(R.id.eventName);
         String title = name.getText().toString();
 
@@ -40,6 +42,7 @@ public class Event extends Activity {
     }
 
     public Date getStart() throws java.text.ParseException {
+        /// HAALT DE WAARDE VAN DE INPUT VOOR DE BEGINDAG EN TIJD
         EditText startday = (EditText) findViewById(R.id.StartDay);
         String daystart = startday.getText().toString();
 
@@ -59,7 +62,8 @@ public class Event extends Activity {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         df.setTimeZone(TimeZone.getTimeZone("CEST"));
 
-        Date startDate = df.parse(yearstart + "-" + monthstart + "-" + daystart  + " " +  hourstart  + ":" + minstart);
+        ///MAAKT VAN ALLE STRINGS EEN Date
+        Date startDate = df.parse(yearstart + "-" + monthstart + "-" + daystart + " " + hourstart + ":" + minstart);
 
 
         start = startDate;
@@ -68,8 +72,8 @@ public class Event extends Activity {
     }
 
 
-
     public Date getEnd() throws java.text.ParseException {
+        /// HAALT DE WAARDE VAN DE INPUT VOOR DE EINDDAG EN TIJD
         EditText endday = (EditText) findViewById(R.id.EndDay);
         String dayend = endday.getText().toString();
 
@@ -88,14 +92,13 @@ public class Event extends Activity {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         df.setTimeZone(TimeZone.getTimeZone("CEST"));
 
+        ///MAAKT VAN ALLE STRINGS EEN Date
         Date endDate = df.parse(yearend + "-" + monthend + "-" + dayend + " " + hourend + ":" + minend);
 
         end = endDate;
 
         return end;
     }
-
-    /// END OF GETTERS ///
 
 
     /// METHOD OM EVENTS OP TE SLAAN IN PARSE.COM
@@ -113,7 +116,7 @@ public class Event extends Activity {
             Intent cal = new Intent(this, WeekViewer.class);
             startActivity(cal);
 
-        }   catch(android.net.ParseException e){
+        } catch (android.net.ParseException e) {
             e.printStackTrace();
             e.printStackTrace();
             Toast.makeText(getApplicationContext(),
@@ -122,6 +125,8 @@ public class Event extends Activity {
 
     }
 
-    public void goSave(View v) throws ParseException, java.text.ParseException {saveDate();}
+    public void goSave(View v) throws ParseException, java.text.ParseException {
+        saveDate();
+    }
 
 }

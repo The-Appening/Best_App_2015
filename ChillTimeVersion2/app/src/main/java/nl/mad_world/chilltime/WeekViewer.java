@@ -46,7 +46,7 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     public DateFormat df = new SimpleDateFormat("");
 
     public void getData() {
-        //Get Event
+        //METHOD OM ALLE EVENTS VAN PARSE.COM OP TE HALEN EN ZET DEZE IN EEN ARRAYLIST.
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
         query.whereExists("objectId");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -76,10 +76,10 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weekview);
 
-        // Get a reference for the week view in the layout.
+        // ELEMENT INSTELLEN IN XML
         mWeekView = (WeekView) findViewById(R.id.weekView);
 
-        // Show a toast message about the touched event.
+        // ALS JE OP EVENT CLICKT KRIJG JE EEN TOAST.
         mWeekView.setOnEventClickListener(this);
 
         // The week view has infinite scrolling horizontally. We have to provide the events of a
