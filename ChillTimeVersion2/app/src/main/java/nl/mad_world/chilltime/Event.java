@@ -145,7 +145,7 @@ public class Event extends Activity {
             Toast.makeText(getApplicationContext(),
                     "Afspraak aangemaakt!", Toast.LENGTH_LONG).show();
 
-            Intent cal = new Intent(this, WeekViewer.class);
+            Intent cal = new Intent(this, CaldroidActivity.class);
             startActivity(cal);
 
         } catch (android.net.ParseException e) {
