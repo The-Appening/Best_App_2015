@@ -53,9 +53,6 @@
             android:name=".Event"
             android:label="Afspraak Maken" >
         </activity>
-        android:name=".Event"
-        android:label="Afspraak Maken" >
-    </activity>
         <activity
             android:name=".AddGroup"
             android:label="@string/title_activity_add_group" >
@@ -72,6 +69,6 @@
             android:name=".AddGroupMember"
             android:label="@string/title_activity_add_group_member" >
         </activity>
-    </application>
 
+</application>
 </manifest>
