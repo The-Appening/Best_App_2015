@@ -2,15 +2,14 @@ package nl.mad_world.chilltime;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -19,116 +18,91 @@ import java.util.TimeZone;
  * Created by Johan on 12-6-2015.
  */
 public class Event extends Activity {
-
-    public static String Title;
-    public static int StartDay;
-    public static int StartMonth;
-    public static int StartYear;
-    public static int StartHour;
-    public static int StartMin;
-    public static int EndDay;
-    public static int EndMonth;
-    public static int EndYear;
-    public static int EndHour;
-    public static int EndMin;
+    public String title;
     public Date start;
     public Date end;
     public ParseObject ev;
-    public DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
+    public Event(){}
 
-    /// BEGIN OF CONSTRUCTOR ////
-    public Event(String title, int startDay, int startMonth, int startYear, int startHour, int startMin, int endDay, int endMonth, int endYear, int endHour, int endMin) {
-        Title = title;
-        StartDay = startDay;
-        StartMonth = startMonth;
-        StartYear = startYear;
-        StartHour = startHour;
-        StartMin = startMin;
-        EndDay = endDay;
-        EndMonth = endMonth;
-        EndYear = endYear;
-        EndHour = endHour;
-        EndMin = endMin;
-    }
-
-    public Event() {
-    }
-    /// END OF CONSTRUCTOR ///
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_events);
-    }
+        public Event(String title,Date start, Date end) {
+            this.title = title;
+            this.start = start;
+            this.end = end;
+        }
 
 
     public String getTitles() {
-        return Title;
-    }
-
-    public void setTitles() {
         EditText name = (EditText) findViewById(R.id.eventName);
+        String title = name.getText().toString();
 
-        this.Title = name.getText().toString();
+        return title;
     }
 
-    public void setStart() throws java.text.ParseException {
+    public Date getStart() throws java.text.ParseException {
         EditText startday = (EditText) findViewById(R.id.StartDay);
+        int startDay = Integer.parseInt(startday.getText().toString());
         String daystart = startday.getText().toString();
-        StartDay = Integer.parseInt(daystart);
 
         EditText startmonth = (EditText) findViewById(R.id.StartMonth);
+        int startMonth = Integer.parseInt(startmonth.getText().toString());
         String monthstart = startmonth.getText().toString();
-        StartMonth = Integer.parseInt(monthstart);
 
         EditText startyear = (EditText) findViewById(R.id.StartYear);
+        int startYear = Integer.parseInt(startyear.getText().toString());
         String yearstart = startyear.getText().toString();
-        StartYear = Integer.parseInt(yearstart);
 
         EditText starthour = (EditText) findViewById(R.id.StartHour);
+        int startHour = Integer.parseInt(starthour.getText().toString());
         String hourstart = starthour.getText().toString();
-        StartHour = Integer.parseInt(hourstart);
 
         EditText startmin = (EditText) findViewById(R.id.StartMin);
+        int startMin = Integer.parseInt(startmin.getText().toString());
         String minstart = startmin.getText().toString();
-        StartMin = Integer.parseInt(minstart);
 
-
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         df.setTimeZone(TimeZone.getTimeZone("CEST"));
-        start = df.parse(yearstart + "-" + monthstart + "-" + daystart + " " + hourstart + ":" + minstart);
+
+        Date startDate = df.parse(yearstart + "-" + monthstart + "-" + daystart  + " " +  hourstart  + ":" + minstart);
 
 
+        start = startDate;
+
+        return start;
     }
 
-    public Date getStart(){ return start;}
 
-    public void setEnd() throws java.text.ParseException {
+
+    public Date getEnd() throws java.text.ParseException {
         EditText endday = (EditText) findViewById(R.id.EndDay);
+        int endDay = Integer.parseInt(endday.getText().toString());
         String dayend = endday.getText().toString();
-        EndDay = Integer.parseInt(dayend);
 
         EditText endmonth = (EditText) findViewById(R.id.EndMonth);
+        int endMonth = Integer.parseInt(endmonth.getText().toString());
         String monthend = endmonth.getText().toString();
-        EndMonth = Integer.parseInt(monthend);
 
         EditText endyear = (EditText) findViewById(R.id.EndYear);
+        int endYear = Integer.parseInt(endyear.getText().toString());
         String yearend = endyear.getText().toString();
-        EndYear = Integer.parseInt(yearend);
 
         EditText endhour = (EditText) findViewById(R.id.EndHour);
         String hourend = endhour.getText().toString();
-        EndHour = Integer.parseInt(hourend);
 
         EditText endmin = (EditText) findViewById(R.id.EndMin);
         String minend = endmin.getText().toString();
-        EndMin = Integer.parseInt(minend);
 
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         df.setTimeZone(TimeZone.getTimeZone("CEST"));
-        end = df.parse(yearend + "-" + monthend + "-" + dayend + " " + hourend + ":" + minend);
+
+        Date endDate = df.parse(yearend + "-" + monthend + "-" + dayend + " " + hourend + ":" + minend);
+
+        end = endDate;
+
+        return end;
     }
 
-    public Date getEnd(){ return end;}
+    /// END OF GETTERS ///
 
 
     /// METHOD OM EVENTS OP TE SLAAN IN PARSE.COM
@@ -138,8 +112,6 @@ public class Event extends Activity {
             ev.put("Title", getTitles());
             ev.put("StartDate", getStart());
             ev.put("EndDate", getEnd());
-            ev.put("Group", "poeppeop");
-
             ev.saveInBackground();
 
             Toast.makeText(getApplicationContext(),
@@ -148,7 +120,7 @@ public class Event extends Activity {
             Intent cal = new Intent(this, WeekViewer.class);
             startActivity(cal);
 
-        } catch (android.net.ParseException e) {
+        }   catch(android.net.ParseException e){
             e.printStackTrace();
             e.printStackTrace();
             Toast.makeText(getApplicationContext(),
@@ -157,8 +129,6 @@ public class Event extends Activity {
 
     }
 
-    public void goSave(View v) throws ParseException, java.text.ParseException {
-        saveDate();
-    }
+    public void goSave(View v) throws ParseException, java.text.ParseException {saveDate();}
 
 }
