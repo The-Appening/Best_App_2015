@@ -119,9 +119,8 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
     }
 
     public void Refresh() {
-        ViewGroup vg = (ViewGroup) findViewById(R.layout.fragment_contact);
-        vg.removeAllViews();
-        vg.refreshDrawableState();
+        finish();
+        startActivity(getIntent());
     }
 
     public void AddContact(View view) {
