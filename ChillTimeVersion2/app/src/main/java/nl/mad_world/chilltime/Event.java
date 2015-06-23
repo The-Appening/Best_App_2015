@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.parse.ParseObject;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -64,10 +63,11 @@ public class Event extends Activity {
         EditText startmin = (EditText) findViewById(R.id.StartMin);
         String minstart = startmin.getText().toString();
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         ///MAAKT VAN ALLE STRINGS EEN Date
-        Date startDate = df.parse(yearstart + "-" + monthstart + "-" + daystart + " " + hourstart + ":" + minstart);
+        Date startDate = sdf.parse(yearstart + "-" + monthstart + "-" + daystart + " " + hourstart + ":" + minstart);
 
 
         start = startDate;
@@ -93,7 +93,7 @@ public class Event extends Activity {
         EditText endmin = (EditText) findViewById(R.id.EndMin);
         String minend = endmin.getText().toString();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         ///MAAKT VAN ALLE STRINGS EEN Date
