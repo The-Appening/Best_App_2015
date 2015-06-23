@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -49,22 +51,24 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
         query.whereExists("Title");
         query.whereEqualTo("Group", select);
-        query.findInBackground((List, e) -> {
-            try {
-                if (e == null) {
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> List, ParseException e) {
+                try {
+                    if (e == null) {
 
-                    Log.d("Afspraak", "Opgehaald " + List.size() + " afspraken");
+                        Log.d("Afspraak", "Opgehaald " + List.size() + " afspraken");
 
-                    for (int i = 0; i < List.size(); i++) {
-                        activityArray.add(List.get(i));
+                        for (int i = 0; i < List.size(); i++) {
+                            activityArray.add(List.get(i));
+                        }
+
+                    } else {
+                        Log.d("Afspraken", "Error: " + e.getMessage());
                     }
-
-                } else {
-                    Log.d("Afspraken", "Error: " + e.getMessage());
+                } catch (Exception t) {
+                    Toast.makeText(getApplicationContext(),
+                            "Kan geen afspraken ophalen!", Toast.LENGTH_LONG).show();
                 }
-            } catch (Exception t) {
-                Toast.makeText(getApplicationContext(),
-                        "Kan geen afspraken ophalen!", Toast.LENGTH_LONG).show();
             }
         });
     }
