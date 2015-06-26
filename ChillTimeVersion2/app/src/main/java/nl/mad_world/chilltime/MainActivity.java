@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.Parse;
@@ -46,7 +45,6 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         } else {
-            System.out.println("GEEN INTERNET BESCHIKBAAR");
             showAlert("U heeft mogelijk geen internetverbinding of uw internetverbinding is te zwak.");
         }
     }

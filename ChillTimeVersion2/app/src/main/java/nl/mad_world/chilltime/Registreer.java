@@ -43,10 +43,6 @@ public class Registreer extends ActionBarActivity {
     }
 
     public void Save(View view) {
-        saveRegistrationInDb();
-    }
-
-    public void saveRegistrationInDb() {
         ParseUser user = new ParseUser();
 
         String insertion;
