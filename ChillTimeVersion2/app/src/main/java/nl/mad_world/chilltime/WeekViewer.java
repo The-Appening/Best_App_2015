@@ -37,11 +37,9 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     private static final int TYPE_THREE_DAY_VIEW = 2;
     private static final int TYPE_WEEK_VIEW = 3;
     public ArrayList<ParseObject> activityArray = new ArrayList<>();
+    public List<WeekViewEvent> events;
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
-
-
-
 
     public void getData() {
         //METHOD OM ALLE EVENTS VAN PARSE.COM OP TE HALEN EN ZET DEZE IN EEN ARRAYLIST.
@@ -58,13 +56,21 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
                         Log.d("Afspraak", "Opgehaald " + List.size() + " afspraken");
 
+                        int id = 0;
                         for (int i = 0; i < List.size(); i++) {
-                            activityArray.add(List.get(i));
+                            activityArray.add(id++, List.get(i));
                         }
+
+                        if(activityArray.size() < List.size()){
+                            List.get(List.size()).delete();
+                            List.remove(List.size());
+                        }
+
 
                     } else {
                         Log.d("Afspraken", "Error: " + e.getMessage());
                     }
+
                 } catch (Exception t) {
                     Toast.makeText(getApplicationContext(),
                             "Kan geen afspraken ophalen!", Toast.LENGTH_LONG).show();
@@ -201,36 +207,35 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-        // Populate the week view with some events.
-        List<WeekViewEvent> events = new ArrayList<>();
-
         //Create Event
-        int num = 0;
-        int id = 0;
+        events = new ArrayList<WeekViewEvent>();
 
+        int idset = 0;
 
-            for (int i = 0; i < activityArray.size(); i++) {
-                String Title = activityArray.get(i).get("Title").toString();
-                Date Start = (Date) activityArray.get(i).get("StartDate");
-                Date End = (Date) activityArray.get(i).get("EndDate");
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+        for (int i = 0; i < activityArray.size(); i++) {
+            String Title = activityArray.get(i).get("Title").toString();
+            Date Start = (Date) activityArray.get(i).get("StartDate");
+            Date End = (Date) activityArray.get(i).get("EndDate");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
 
-                Calendar startTime = Calendar.getInstance(TimeZone.getTimeZone("CEST"));
-                startTime.setTime(Start);
+            Calendar startTime = Calendar.getInstance(TimeZone.getTimeZone("CEST"));
+            startTime.setTime(Start);
 
-                Calendar endTime = (Calendar) startTime.clone();
-                endTime.setTime(End);
+            Calendar endTime = (Calendar) startTime.clone();
+            endTime.setTime(End);
 
+            WeekViewEvent event = new WeekViewEvent(idset++, Title, startTime, endTime);
+            mWeekView.setDefaultEventColor(getResources().getColor(R.color.event_color_03));
 
-                WeekViewEvent event = new WeekViewEvent(++id, Title, startTime, endTime);
-                mWeekView.setDefaultEventColor(getResources().getColor(R.color.event_color_02));
-                events.add(num++, event);
-                mWeekView.notifyDatasetChanged();
-            }
+            long eventID = event.getId();
+            String numberAsString = String.valueOf(eventID).toString();
+            int id = Integer.parseInt(numberAsString);
+
+            events.add(id, event);
+            mWeekView.notifyDatasetChanged();
+        }
 
         mWeekView.notifyDatasetChanged();
-
-
         return events;
 
     }
@@ -240,8 +245,18 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     }
 
     @Override
-    public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(WeekViewer.this, "Clicked " + event.getName() + event.getId(), Toast.LENGTH_SHORT).show();
+    public void onEventClick(WeekViewEvent ev, RectF eventRect) {
+
+        long eventID = ev.getId();
+        String numberAsString = String.valueOf(eventID).toString();
+        int id = Integer.parseInt(numberAsString);
+
+        if (id == events.get(id).getId()) {
+            events.remove(id);
+            activityArray.remove(id);
+            mWeekView.notifyDatasetChanged();
+        }
+        mWeekView.notifyDatasetChanged();
     }
 
     @Override
