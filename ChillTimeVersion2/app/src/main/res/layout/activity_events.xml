@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true"
+            android:padding="0dp">
 
    <RelativeLayout
        android:layout_width="match_parent"
-       android:layout_height="match_parent">
+       android:layout_height="match_parent"
+       android:padding="0dp">
 
         <EditText
             android:layout_width="wrap_content"
@@ -25,7 +27,7 @@
            android:textAppearance="?android:attr/textAppearanceLarge"
            android:text="Begin"
            android:id="@+id/begin"
-           android:layout_below="@+id/eventName"
+           android:layout_below="@+id/textspacer"
            android:layout_alignStart="@+id/end"/>
 
        <TextView
@@ -48,7 +50,7 @@
            android:layout_centerHorizontal="true"
            android:clickable="false"
            android:capitalize="words"
-           android:layout_marginTop="800dp"/>
+           />
 
        <TimePicker
            android:layout_width="wrap_content"
@@ -92,6 +94,27 @@
            android:layout_below="@+id/datePickerEnd"
            android:layout_alignParentEnd="true"
            android:layout_alignParentStart="true"/>
+
+       <Space
+           android:layout_width="match_parent"
+           android:layout_height="100dp"
+           android:layout_below="@+id/timePickerEnd"
+           android:layout_centerHorizontal="true"/>
+
+       <Space
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:layout_below="@+id/eventName"
+           android:layout_alignParentStart="true"
+           android:id="@+id/textspacer"/>
+
+       <Space
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:layout_below="@+id/timePickerStart"
+           android:layout_centerHorizontal="true"
+           android:layout_alignParentStart="true"
+           android:id="@+id/Endspacer"/>
 
    </RelativeLayout>
 

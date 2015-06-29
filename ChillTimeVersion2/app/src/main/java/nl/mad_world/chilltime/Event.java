@@ -25,6 +25,8 @@ public class Event extends Activity {
     public Date start;
     public Date end;
     public ParseObject ev;
+    public TimePicker starttime;
+    public TimePicker endtime;
 
 
     public Event() {
@@ -39,6 +41,12 @@ public class Event extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
+
+        starttime = (TimePicker) findViewById(R.id.timePickerStart);
+        endtime = (TimePicker) findViewById(R.id.timePickerEnd);
+
+        starttime.setIs24HourView(true);
+        endtime.setIs24HourView(true);
     }
 
     public String getTitles() {
@@ -67,11 +75,8 @@ public class Event extends Activity {
 
             DatePicker start = (DatePicker) findViewById(R.id.datePickerStart);
             DatePicker end = (DatePicker) findViewById(R.id.datePickerEnd);
-            final TimePicker starttime = (TimePicker) findViewById(R.id.timePickerStart);
-            TimePicker endtime = (TimePicker) findViewById(R.id.timePickerEnd);
-
-            starttime.setIs24HourView(true);
-            endtime.setIs24HourView(true);
+            starttime = (TimePicker) findViewById(R.id.timePickerStart);
+            endtime = (TimePicker) findViewById(R.id.timePickerEnd);
 
             int StartDay = start.getDayOfMonth();
             int StartMonth = start.getMonth();
