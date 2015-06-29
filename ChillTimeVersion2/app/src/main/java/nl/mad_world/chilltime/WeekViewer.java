@@ -61,11 +61,6 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
                             activityArray.add(id++, List.get(i));
                         }
 
-                        if(activityArray.size() < List.size()){
-                            List.get(List.size()).delete();
-                            List.remove(List.size());
-                        }
-
 
                     } else {
                         Log.d("Afspraken", "Error: " + e.getMessage());
@@ -246,17 +241,19 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
     @Override
     public void onEventClick(WeekViewEvent ev, RectF eventRect) {
+        try {
+            long eventID = ev.getId();
+            String numberAsString = String.valueOf(eventID).toString();
+            int id = Integer.parseInt(numberAsString);
 
-        long eventID = ev.getId();
-        String numberAsString = String.valueOf(eventID).toString();
-        int id = Integer.parseInt(numberAsString);
-
-        if (id == events.get(id).getId()) {
-            events.remove(id);
+            activityArray.get(id).delete();
             activityArray.remove(id);
+            ParseObject.createWithoutData("Event", events.get(id).getName());
+            events.remove(id);
             mWeekView.notifyDatasetChanged();
+
+        } catch (Exception e) {
         }
-        mWeekView.notifyDatasetChanged();
     }
 
     @Override
