@@ -241,6 +241,11 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
     @Override
     public void onEventClick(WeekViewEvent ev, RectF eventRect) {
+
+    }
+
+    @Override
+    public void onEventLongPress(WeekViewEvent ev, RectF eventRect) {
         try {
             long eventID = ev.getId();
             String numberAsString = String.valueOf(eventID).toString();
@@ -254,10 +259,8 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
 
         } catch (Exception e) {
         }
-    }
 
-    @Override
-    public void onEventLongPress(WeekViewEvent ev, RectF eventRect) {
+
     }
 
     @Override
