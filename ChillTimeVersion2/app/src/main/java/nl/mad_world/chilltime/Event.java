@@ -55,7 +55,7 @@ public class Event extends Activity {
         ParseUser currentUser = ParseUser.getCurrentUser();
         String username = currentUser.getUsername();
 
-        String title = "<B>" + username + "</B>" + ": " + "\n" + name.getText().toString();
+        String title = username + ": " + "\n" + name.getText().toString();
 
         return title;
     }
