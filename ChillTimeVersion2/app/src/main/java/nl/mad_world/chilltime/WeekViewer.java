@@ -268,3 +268,4 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
         mWeekView.notifyDatasetChanged();
     }
 }
+

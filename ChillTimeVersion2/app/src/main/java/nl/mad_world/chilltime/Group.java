@@ -262,8 +262,10 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             final View rootView = inflater.inflate(R.layout.fragment_group, container, false);
             getContactData();
             final ListView listView = (ListView) rootView.findViewById(R.id.GlistView);
+            listView.invalidateViews();
             listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Groups));
             registerForContextMenu(listView);
+            listView.invalidateViews();
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
@@ -271,7 +273,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
                                         int position, long arg3) {
 
 
-
+                    listView.invalidateViews();
                     Intent intent = new Intent(getActivity(), WeekViewer.class);
                     intent.putExtra("selectedGroup", Groups.get(position));
                     startActivity(intent);
@@ -343,6 +345,7 @@ public class Group extends ActionBarActivity implements ActionBar.TabListener {
             View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
             ListView ContactList = (ListView) rootView.findViewById(R.id.ClistView);
             contactList();
+            ContactList.invalidateViews();
             ContactList.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, contacts));
             registerForContextMenu(ContactList);
             ContactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
