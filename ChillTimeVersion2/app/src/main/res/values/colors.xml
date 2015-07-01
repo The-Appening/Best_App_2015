@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="event_color_01">#59dbe0</color>
-    <color name="event_color_02">#f57f68</color>
-    <color name="event_color_03">#87d288</color>
+    <color name="event_color_01">#ff57e0e0</color>
+    <color name="event_color_02">#fff54b42</color>
+    <color name="event_color_03">#ff68d260</color>
     <color name="event_color_04">#f8b552</color>
-    <color name="event_color_05">#ffff0000</color>
-    <color name="event_color_06">#ff0000ff</color>
+    <color name="event_color_05">#ffff7b91</color>
+    <color name="event_color_06">#ffb1a2ff</color>
     <color name="toolbar">#efefef</color>
     <color name="toolbar_text">#8f000000</color>
     <color name="accent">#2789e4</color>

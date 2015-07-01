@@ -36,9 +36,9 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_THREE_DAY_VIEW = 2;
     private static final int TYPE_WEEK_VIEW = 3;
+    private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     public ArrayList<ParseObject> activityArray = new ArrayList<>();
     public List<WeekViewEvent> events;
-    private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
 
     public void getData() {
@@ -124,9 +124,6 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
                 startActivity(createEvent);
                 return true;
 
-            case R.id.action_today:
-                mWeekView.goToToday();
-                return true;
             case R.id.action_day_view:
                 if (mWeekViewType != TYPE_DAY_VIEW) {
                     item.setChecked(!item.isChecked());
@@ -139,7 +136,6 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
                 }
                 return true;
-
             case R.id.action_three_day_view:
                 if (mWeekViewType != TYPE_THREE_DAY_VIEW) {
                     item.setChecked(!item.isChecked());
@@ -179,15 +175,14 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
         mWeekView.setDateTimeInterpreter(new DateTimeInterpreter() {
             @Override
             public String interpretDate(Calendar date) {
-                SimpleDateFormat weekdayNameFormat = new SimpleDateFormat("EEEE");
+                SimpleDateFormat weekdayNameFormat = new SimpleDateFormat("EEE");
                 String weekday = weekdayNameFormat.format(date.getTime());
-                SimpleDateFormat format = new SimpleDateFormat("dd MMMM");
+                SimpleDateFormat format = new SimpleDateFormat(" d/MM");
 
                 // All android api level do not have a standard way of getting the first letter of
                 // the week day name. Hence we get the first char programmatically.
                 // Details: http://stackoverflow.com/questions/16959502/get-one-letter-abbreviation-of-week-day-of-a-date-in-java#answer-16959657
-
-                return weekday + " " + format.format(date.getTime());
+                return weekday.toUpperCase() + format.format(date.getTime());
             }
 
             @Override
@@ -220,7 +215,7 @@ public class WeekViewer extends ActionBarActivity implements WeekView.MonthChang
             endTime.setTime(End);
 
             WeekViewEvent event = new WeekViewEvent(idset++, Title, startTime, endTime);
-            mWeekView.setDefaultEventColor(getResources().getColor(R.color.event_color_03));
+            event.setColor(getResources().getColor(R.color.event_color_01));
 
             long eventID = event.getId();
             String numberAsString = String.valueOf(eventID).toString();

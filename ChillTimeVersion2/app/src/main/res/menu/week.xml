@@ -1,26 +1,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".MyActivity" >
+      tools:context=".WeekViewer" >
 
     <item android:id="@+id/eventcreate"
           android:title="Afspraak maken"
-          android:orderInCategory="100"
+          android:orderInCategory="1"
           app:showAsAction="always"/>
     <group android:checkableBehavior="single">
         <item android:id="@+id/action_day_view"
               android:title="@string/action_day_view"
-              android:orderInCategory="100"
-              app:showAsAction="never"
-              android:checked="true"/>
+              android:orderInCategory="2"
+              app:showAsAction="never"/>
         <item android:id="@+id/action_three_day_view"
               android:title="@string/action_three_day_view"
-              android:orderInCategory="100"
+              android:orderInCategory="3"
+              android:checked="true"
               app:showAsAction="never"/>
         <item android:id="@+id/action_week_view"
               android:title="@string/action_week_view"
-              android:orderInCategory="100"
+              android:orderInCategory="4"
               app:showAsAction="never"
             />
     </group>
 </menu>
+
+
+
